@@ -1,0 +1,11 @@
+{
+  "name": "lowbar",
+  "private": true,
+  "version": "0.0.0",
+  "dependencies": {
+  },
+  "scripts": {
+    "test": "mocha ./spec/",
+    "lint": "semistandard --verbose | snazzy"
+  }
+}
