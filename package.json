@@ -2,10 +2,12 @@
   "name": "lowbar",
   "private": true,
   "version": "0.0.0",
-  "dependencies": {
-  },
+  "dependencies": {},
   "scripts": {
     "test": "mocha ./spec/",
     "lint": "semistandard --verbose | snazzy"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
   }
 }
