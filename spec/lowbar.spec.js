@@ -16,6 +16,13 @@ describe('_', function () {
     it('is a function', function () {
       expect(_.each).to.be.a('function');
     });
+    it('accepts 2 or 3 arguments', function () {
+      expect(_.each.length).to.be.within(2, 3);
+    });
+    it('returns a list', function () {
+      expect(_.each([])).to.be.an('array');
+      expect(_.each({})).to.be.an('object');
+    });
   });
 
 // testing #identity
@@ -58,6 +65,8 @@ describe('_', function () {
       expect(_.first()).to.be.undefined;
     });
   });
+
+  // testing _.last function
 
   describe('#last', function () {
     it('is a function', function () {

@@ -1,10 +1,16 @@
 var _ = {};
 
-_.each = function () {
-  // your code here
+_.each = function (list, item) {
+  if(Array.isArray(list)){
+    return [];
 
+  }else{
+    return {};
+  }
 };
 
+// _.identity function//
+//
 _.identity = function (value) {
   return value;
 };
@@ -21,8 +27,6 @@ _.first = function (list, item) {
       result.push(list[i]);
     }
     return result;
-  } else {
-    return undefined;
   }
 };
 
@@ -38,11 +42,11 @@ _.last = function (list, item) {
       result.push(list[i]);
     }
     return result;
-  } else {
-    return undefined;
   }
 };
 
 if (typeof module !== 'undefined') {
   module.exports = _;
 }
+// _.last function//
+//
