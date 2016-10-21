@@ -44,7 +44,16 @@ describe('#first', function(){
  it('is a function', function(){
    expect(_.first).to.be.a('function');
  });
-
+it('it accepts 1 or 2 arguments', function(){
+  expect(_.first.length).to.be.within(1,2);
+});
+it('returns an array', function(){
+  expect(_.first([])).to.be.a('array');
+})
+it('returns the expected values from a the head of given array', function(){
+  expect(_.first([4,6,7,8,9], 3)).to.eql([4,6,7]);
+  expect(_.first([4,6,7,8,9])).to.eql([4,6]);
+});
 });
 
 

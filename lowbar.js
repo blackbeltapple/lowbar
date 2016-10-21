@@ -11,8 +11,18 @@ _.identity = function(value){
 
 };
 
-_.first = function(){
+_.first = function(list, item){
 
+  var result =[];
+
+  if(item === undefined){
+    item =1;
+  }
+  for (i=0; i<item; i++){
+    result.push(list[i]);
+  }
+  
+  return result;
 
 };
 
