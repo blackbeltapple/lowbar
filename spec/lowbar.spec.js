@@ -132,4 +132,25 @@ describe('_', function () {
       expect(_.indexOf([1, 2, 3, 3, 3])).to.equal(-1);
     });
   });
+
+    // testing _.filter function
+
+  describe('#filter', function () {
+    it('is a function', function () {
+      expect(_.filter).to.be.a('function');
+    });
+    it('returns an array', function () {
+      expect(_.filter()).to.be.an('array');
+    });
+    it('returns an array when given an object', function () {
+      expect(_.filter({})).to.eql([]);
+    });
+    it('returns [2, 4, 6] when passed [1, 2, 3, 4, 5, 6]', function () {
+      var testFn = _.filter([1, 2, 3, 4, 5, 6], function (num) { return num % 2 === 0; });
+      expect(testFn).to.eql([2, 4, 6]);
+    });
+    it('it returns an emty array when give an empty array', function () {
+      expect(_.filter([])).to.eql([]);
+    });
+  });
 });

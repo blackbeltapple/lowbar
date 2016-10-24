@@ -49,6 +49,8 @@ _.last = function (list, item) {
   }
 };
 
+// _.indexOf function//
+
 _.indexOf = function (array, value) {
   if (array === undefined || value === undefined) {
     return -1;
@@ -61,6 +63,22 @@ _.indexOf = function (array, value) {
       }
     }
     return valueIndex;
+  }
+};
+
+// _.filter function//
+
+_.filter = function (list, fn) {
+  var newArray = [];
+  if (list !== undefined) {
+    for (var i = 0; i < list.length; i++) {
+      if (fn(list[i])) {
+        newArray.push(list[i]);
+      }
+    }
+    return newArray;
+  } else {
+    return [];
   }
 };
 
