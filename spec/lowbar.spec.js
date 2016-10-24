@@ -153,4 +153,38 @@ describe('_', function () {
       expect(_.filter([])).to.eql([]);
     });
   });
+
+  describe('#reject', function () {
+    it('is a function', function () {
+      expect(_.reject).to.be.a('function');
+    });
+    it('returns an array', function () {
+      expect(_.reject()).to.be.an('array');
+    });
+    it('returns an array when given an object', function () {
+      expect(_.reject({})).to.eql([]);
+    });
+    it('returns [1, 3, 5] when passed [1, 2, 3, 4, 5, 6]', function () {
+      var testFn = _.reject([1, 2, 3, 4, 5, 6], function (num) { return num % 2 === 0; });
+      expect(testFn).to.eql([1, 3, 5]);
+    });
+    it('it returns an emty array when give an empty array', function () {
+      expect(_.reject([])).to.eql([]);
+    });
+  });
+
+  describe('#uniq', function () {
+    it('is a function', function () {
+      expect(_.uniq).to.be.a('function');
+    });
+    it('returns an array', function () {
+      expect(_.uniq()).to.be.an('array');
+    });
+    it('returns [1,2,3] when given [1, 2, 3, 1, 2, 1, 1, 2]', function () {
+      expect(_.uniq([1, 2, 3, 1, 2, 1, 1, 2])).to.eql([1, 2, 3]);
+    });
+    it('it returns an emty array when give an empty array', function () {
+      expect(_.uniq([])).to.eql([]);
+    });
+  });
 });

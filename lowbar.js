@@ -82,6 +82,35 @@ _.filter = function (list, fn) {
   }
 };
 
+// _.reject function//
+
+_.reject = function (list, fn) {
+  var newArray = [];
+  if (list !== undefined) {
+    for (var i = 0; i < list.length; i++) {
+      if (!fn(list[i])) {
+        newArray.push(list[i]);
+      }
+    }
+    return newArray;
+  } else {
+    return [];
+  }
+};
+
+// _.uniq function
+
+_.uniq = function (list) {
+  var newArray = [];
+  if (list === undefined) return [];
+  for (var i = 0; i < list.length; i++) {
+    if (newArray.indexOf(list[i]) === -1) {
+      newArray.push(list[i]);
+    }
+  }
+  return newArray;
+};
+
 if (typeof module !== 'undefined') {
   module.exports = _;
 }
