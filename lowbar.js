@@ -1,12 +1,16 @@
 var _ = {};
 
-_.each = function (list, item) {
-  if(Array.isArray(list)){
-    return [];
-
-  }else{
-    return {};
+_.each = function (list, fn) {
+  if (Array.isArray(list)) {
+    for (var i = 0; i < list.length; i++) {
+      fn(list[i]);
+    }
+  } else {
+    for (var key in list) {
+      fn(list[key]);
+    }
   }
+  return list;
 };
 
 // _.identity function//

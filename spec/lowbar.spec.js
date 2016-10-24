@@ -23,6 +23,26 @@ describe('_', function () {
       expect(_.each([])).to.be.an('array');
       expect(_.each({})).to.be.an('object');
     });
+    it('passes each item in the list to a function', function () {
+      var testArr = [];
+      var testFn = function (num) { testArr.push(num * 2); };
+      _.each([1, 2, 3], testFn);
+      expect(testArr).to.eql([2, 4, 6]);
+    });
+    it('returns the original list', function () {
+      var testFn2 = function (item) {};
+      expect(_.each([1, 2, 3], testFn2)).to.eql([1, 2, 3]);
+    });
+    it('returns the original object', function () {
+      var testFn2 = function (item) {};
+      expect(_.each({name: 'ada', age: '34'}, testFn2)).to.eql({name: 'ada', age: '34'});
+    });
+    it('passes each value in an object to a function', function () {
+      var testArr = [];
+      var testFn = function (value) { testArr.push(value); };
+      _.each({ name: 'ada', age: '34' }, testFn);
+      expect(testArr).to.eql(['ada', '34']);
+    });
   });
 
 // testing #identity
