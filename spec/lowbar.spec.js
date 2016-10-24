@@ -106,4 +106,30 @@ describe('_', function () {
       expect(_.last()).to.be.undefined;
     });
   });
+
+  // testing _.indexOf function
+
+  describe('#indexOf', function () {
+    it('is a function', function () {
+      expect(_.indexOf).to.be.a('function');
+    });
+    it('returns a number', function () {
+      expect(_.indexOf()).to.be.a('number');
+    });
+    it('if no arguments passed then returns -1', function () {
+      expect(_.indexOf()).to.equal(-1);
+    });
+    it('if passed [1, 2, 3, 4, 5] and value = 3 will return 2', function () {
+      expect(_.indexOf([1, 2, 3, 4, 5], 3)).to.equal(2);
+    });
+    it('if passed [1, 2, 3, 3, 3] and value = 3 will return 2', function () {
+      expect(_.indexOf([1, 2, 3, 3, 3], 3)).to.equal(2);
+    });
+    it('if passed [1, 2, 3, 3, 3] and value = 8 will return -1', function () {
+      expect(_.indexOf([1, 2, 3, 3, 3], 8)).to.equal(-1);
+    });
+    it('if passed an array but no value, should return -1', function () {
+      expect(_.indexOf([1, 2, 3, 3, 3])).to.equal(-1);
+    });
+  });
 });

@@ -49,6 +49,21 @@ _.last = function (list, item) {
   }
 };
 
+_.indexOf = function (array, value) {
+  if (array === undefined || value === undefined) {
+    return -1;
+  } else {
+    var valueIndex = -1;
+    for (var i = 0; i < array.length; i++) {
+      if (array[i] === value) {
+        valueIndex = i;
+        break;
+      }
+    }
+    return valueIndex;
+  }
+};
+
 if (typeof module !== 'undefined') {
   module.exports = _;
 }
