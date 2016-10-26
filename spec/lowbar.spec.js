@@ -187,4 +187,27 @@ describe('_', function () {
       expect(_.uniq([])).to.eql([]);
     });
   });
+
+  describe('Map()', function () {
+    it('is a function', function () {
+      expect(_.map).to.be.a('function');
+    });
+    it('returns an array', function () {
+      expect(_.map([1,2,3], function (num) { return num * 3;})).to.be.an('array');
+    });
+    it('takes two parameters', function () {
+      expect(_.map.length).to.equal(2);
+    });
+    it('returns an empty array when passed empty array', function () {
+      expect(_.map([])).to.eql([]);
+    });
+    // _.map([1, 2, 3], function(num){ return num * 3; });
+    it('returns correct values when passed values', function () {
+      expect(_.map([1, 2, 3], function(num){ return num * 3; })).to.eql([3,6,9]);
+    });
+    it('accepts objects as param one', function () {
+      var output = _.map({one: 1, two: 2, three: 3}, function(num, key){ return num * 3; });
+      expect(output).to.eql([3,6,9]);
+    });
+  });
 });

@@ -111,6 +111,22 @@ _.uniq = function (list) {
   return newArray;
 };
 
+_.map = function (list, iteratee) {
+  if (list === undefined) return [];
+  var newArray = [];
+  if(Array.isArray(list)) {
+    for (var i = 0; i < list.length; i++) {
+      newArray.push(iteratee(list[i]));
+    }
+  } else // if object
+  {
+    for (var key in list) {
+      newArray.push(iteratee(list[key]));
+    }
+  }
+  return newArray;
+};
+
 if (typeof module !== 'undefined') {
   module.exports = _;
 }
