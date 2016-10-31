@@ -188,7 +188,7 @@ describe('_', function () {
     });
   });
 
-  describe('Map()', function () {
+  describe('#map()', function () {
     it('is a function', function () {
       expect(_.map).to.be.a('function');
     });
@@ -208,6 +208,29 @@ describe('_', function () {
     it('accepts objects as param one', function () {
       var output = _.map({one: 1, two: 2, three: 3}, function(num, key){ return num * 3; });
       expect(output).to.eql([3,6,9]);
+    });
+  });
+
+  describe('#pluck()', function () {
+    it('is a function', function () {
+      expect(_.pluck).to.be.a('function');
+    });
+    it('returns an array', function () {
+      expect(_.pluck([1, 2, 3], 'name')).to.be.an('array');
+    });
+    it('takes two parameters', function () {
+      expect(_.pluck.length).to.equal(2);
+    });
+    it('returns an empty array when passed empty array', function () {
+      expect(_.pluck([],'name')).to.eql([]);
+    });
+    var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+    it('returns ["moe", "larry", "curly"]', function () {
+      expect(_.pluck(stooges, 'name')).to.eql(["moe", "larry", "curly"]);
+    });
+    // var stooges = [{name: 'moe', age: 40}, {age: 50}, {name: 'curly', age: 60}];
+    xit('returns correct array if input array contains an object without the propertyName', function () {
+      expect(_.pluck(stooges, 'name')).to.eql(["moe", "curly"]);
     });
   });
 });

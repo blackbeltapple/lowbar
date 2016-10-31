@@ -127,6 +127,14 @@ _.map = function (list, iteratee) {
   return newArray;
 };
 
+_.pluck = function (list, propertyName) {
+  // TO DO: should this also handle objects as arg1?
+  var propArray = _.map(list, function (item) {
+    return item[propertyName];
+  });
+  return propArray;
+}
+
 if (typeof module !== 'undefined') {
   module.exports = _;
 }
