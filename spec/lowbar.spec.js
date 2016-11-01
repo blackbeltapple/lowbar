@@ -228,9 +228,9 @@ describe('_', function () {
     it('returns ["moe", "larry", "curly"]', function () {
       expect(_.pluck(stooges, 'name')).to.eql(["moe", "larry", "curly"]);
     });
-    // var stooges = [{name: 'moe', age: 40}, {age: 50}, {name: 'curly', age: 60}];
-    xit('returns correct array if input array contains an object without the propertyName', function () {
-      expect(_.pluck(stooges, 'name')).to.eql(["moe", "curly"]);
+    var stooges2 = [{name: 'moe', age: 40}, {age: 50}, {name: 'curly', age: 60}];
+    it('returns element of undefined if input array contains an object without the propertyName', function () {
+      expect(_.pluck(stooges2, 'name')).to.eql(["moe", undefined, "curly"]);
     });
   });
 });
