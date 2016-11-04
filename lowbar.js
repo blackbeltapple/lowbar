@@ -128,12 +128,41 @@ _.map = function (list, iteratee) {
 };
 
 _.pluck = function (list, propertyName) {
-  // TO DO: should this also handle objects as arg1?
   var propArray = _.map(list, function (item) {
     return item[propertyName];
   });
   return propArray;
 }
+
+_.reduce = function (list, iteratee) {
+
+}
+
+_.where = function (list, properties) {
+  var newArray = [];
+
+  // iterate over every item in the array and push it to the new array if
+  // there is a match
+  _.each(list, function (obj) {
+    // Looking at a single object from the list
+    // Is there a match, if yes, push
+    // For the given object, iterate through it's key/value pairs
+    for (key in properties) {
+      // keyname - key
+      // value - obj[key]
+
+    }
+
+
+    newArray.push();
+    // if no - do nothing
+
+    return newArray;
+  });
+
+
+}
+
 
 if (typeof module !== 'undefined') {
   module.exports = _;

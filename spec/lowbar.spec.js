@@ -233,4 +233,42 @@ describe('_', function () {
       expect(_.pluck(stooges2, 'name')).to.eql(["moe", undefined, "curly"]);
     });
   });
+
+  describe('#reduce()', function () {
+    it('is a function', function () {
+      expect(_.reduce).to.be.a('function');
+    });
+    it('takes two to four parameters', function () {
+      expect(_.reduce.length).to.equal(2);
+    });
+    xit('returns an empty array when passed empty array', function () {
+      expect(_.pluck([],'name')).to.eql([]);
+    });
+    var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+    xit('returns ["moe", "larry", "curly"]', function () {
+      expect(_.pluck(stooges, 'name')).to.eql(["moe", "larry", "curly"]);
+    });
+    var stooges2 = [{name: 'moe', age: 40}, {age: 50}, {name: 'curly', age: 60}];
+    xit('returns element of undefined if input array contains an object without the propertyName', function () {
+      expect(_.pluck(stooges2, 'name')).to.eql(["moe", undefined, "curly"]);
+    });
+  });
+});
+describe.only('#where()', function () {
+  var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 50}];
+  var testArray1 = [{a: 1, b: 2, c: 3}, {a: 1, c: 3}, {a: 1, b: 7}, {a: 9}]
+  it('is a function', function () {
+    expect(_.where).to.be.a('function');
+  });
+  it('returns a boolean', function () {
+    expect(_.where([1, 2, 3], {})).to.be.a('boolean');
+  });
+  it('takes two parameters', function () {
+    expect(_.where.length).to.equal(2);
+  });
+  var searchProps = {a: 1, c: 3}
+  it('returns ', function () {
+    expect(_.where(testArray1, searchProps)).to.equal(2);
+  });
+
 });
