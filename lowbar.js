@@ -1,17 +1,17 @@
-var _ = {};
+var _ = {}
 
 _.each = function (list, fn) {
   if (Array.isArray(list)) {
     for (var i = 0; i < list.length; i++) {
-      fn(list[i]);
+      fn(list[i])
     }
   } else {
     for (var key in list) {
-      fn(list[key]);
+      fn(list[key])
     }
   }
-  return list;
-};
+  return list
+}
 
 // _.identity function//
 //
@@ -140,32 +140,20 @@ _.reduce = function (list, iteratee) {
 
 _.where = function (list, properties) {
   var newArray = [];
-
   // iterate over every item in the array and push it to the new array if
-  // there is a match
-  _.each(list, function (obj) {
-    // Looking at a single object from the list
-    // Is there a match, if yes, push
-    // For the given object, iterate through it's key/value pairs
-    for (key in properties) {
-      // keyname - key
-      // value - obj[key]
-
-    }
-
-
-    newArray.push();
-    // if no - do nothing
-
-    return newArray;
+  // every key/value pair in that properties match
+  _.each(list, function (obj, ind) {
+    var match = true;
+    for (var key in properties) {
+      if (obj[key] !== properties[key]) {
+        match = false;
+      }
+    }   // end for key in ...
+    if (match) newArray.push(obj);
   });
-
-
+  return newArray;
 }
-
 
 if (typeof module !== 'undefined') {
   module.exports = _;
 }
-// _.last function//
-//

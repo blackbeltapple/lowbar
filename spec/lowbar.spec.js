@@ -253,22 +253,31 @@ describe('_', function () {
       expect(_.pluck(stooges2, 'name')).to.eql(["moe", undefined, "curly"]);
     });
   });
-});
-describe.only('#where()', function () {
-  var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 50}];
-  var testArray1 = [{a: 1, b: 2, c: 3}, {a: 1, c: 3}, {a: 1, b: 7}, {a: 9}]
-  it('is a function', function () {
-    expect(_.where).to.be.a('function');
-  });
-  it('returns a boolean', function () {
-    expect(_.where([1, 2, 3], {})).to.be.a('boolean');
-  });
-  it('takes two parameters', function () {
-    expect(_.where.length).to.equal(2);
-  });
-  var searchProps = {a: 1, c: 3}
-  it('returns ', function () {
-    expect(_.where(testArray1, searchProps)).to.equal(2);
+  describe('#where()', function () {
+    var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 50}];
+    var testArray1 = [{a: 1, b: 2, c: 3}, {a: 1, c: 3}, {a: 1, b: 7}, {a: 9, f: 11, j: 99}];
+
+    it('is a function', function () {
+      expect(_.where).to.be.a('function');
+    });
+    it('returns an array', function () {
+      expect(_.where([1, 2, 3], {})).to.be.an('array');
+    });
+    it('takes two parameters', function () {
+      expect(_.where.length).to.equal(2);
+    });
+    it('returns 3 objects when passed testArray', function () {
+      expect(_.where(testArray1, {a: 1})).to.eql([{a: 1, b: 2, c: 3}, {a: 1, c: 3}, {a: 1, b: 7}]);
+    });
+    it('returns array of 2 objects when passed testArray', function () {
+      expect(_.where(testArray1, {a: 1, c: 3})).to.eql([{a: 1, b: 2, c: 3}, {a: 1, c: 3}]);
+    });
+    it('returns empty array when no matches found', function () {
+      expect(_.where(testArray1, {a: 4, c: 4})).to.eql([]);
+    });
+    it('returns larry and curly objects when passed stooges array', function () {
+      expect(_.where(stooges, {age: 50})).to.eql([{name: 'larry', age: 50}, {name: 'curly', age: 50}]);
+    });
   });
 
 });
