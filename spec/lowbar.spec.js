@@ -1,4 +1,4 @@
-/* global describe, it */
+/* global describe, it, xit */
 var path = require('path');
 var expect = require('chai').expect;
 
@@ -206,8 +206,8 @@ describe('_', function () {
       expect(_.map([1, 2, 3], function (num) { return num * 3; })).to.eql([3, 6, 9]);
     });
     it('accepts objects as param one', function () {
-      var output = _.map({one: 1, two: 2, three: 3}, function(num, key){ return num * 3; });
-      expect(output).to.eql([3,6,9]);
+      var output = _.map({one: 1, two: 2, three: 3}, function (num, key) { return num * 3; });
+      expect(output).to.eql([3, 6, 9]);
     });
   });
 
@@ -222,15 +222,15 @@ describe('_', function () {
       expect(_.pluck.length).to.equal(2);
     });
     it('returns an empty array when passed empty array', function () {
-      expect(_.pluck([],'name')).to.eql([]);
+      expect(_.pluck([], 'name')).to.eql([]);
     });
     var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
-    it('returns ["moe", "larry", "curly"]', function () {
-      expect(_.pluck(stooges, 'name')).to.eql(["moe", "larry", "curly"]);
+    it('returns [moe, larry, curly]', function () {
+      expect(_.pluck(stooges, 'name')).to.eql(['moe', 'larry', 'curly']);
     });
     var stooges2 = [{name: 'moe', age: 40}, {age: 50}, {name: 'curly', age: 60}];
     it('returns element of undefined if input array contains an object without the propertyName', function () {
-      expect(_.pluck(stooges2, 'name')).to.eql(["moe", undefined, "curly"]);
+      expect(_.pluck(stooges2, 'name')).to.eql(['moe', undefined, 'curly']);
     });
   });
 
@@ -242,15 +242,15 @@ describe('_', function () {
       expect(_.reduce.length).to.equal(2);
     });
     xit('returns an empty array when passed empty array', function () {
-      expect(_.pluck([],'name')).to.eql([]);
+      expect(_.pluck([], 'name')).to.eql([]);
     });
     var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
-    xit('returns ["moe", "larry", "curly"]', function () {
-      expect(_.pluck(stooges, 'name')).to.eql(["moe", "larry", "curly"]);
+    xit('returns [moe, larry, curly]', function () {
+      expect(_.pluck(stooges, 'name')).to.eql(['moe', 'larry', 'curly']);
     });
     var stooges2 = [{name: 'moe', age: 40}, {age: 50}, {name: 'curly', age: 60}];
     xit('returns element of undefined if input array contains an object without the propertyName', function () {
-      expect(_.pluck(stooges2, 'name')).to.eql(["moe", undefined, "curly"]);
+      expect(_.pluck(stooges2, 'name')).to.eql(['moe', undefined, 'curly']);
     });
   });
 
@@ -283,26 +283,25 @@ describe('_', function () {
 
   describe('#contains()', function () {
     it('is a function', function () {
-      expect(_.contains).to.be.a('function')
+      expect(_.contains).to.be.a('function');
     });
     xit('returns a boolean', function () {
-      expect(_.contains([1], 2)).to.be.a('boolean')
+      expect(_.contains([1], 2)).to.be.a('boolean');
     });
     it('takes two or three parameters', function () {
       expect(_.contains.length).to.within(2, 3);
     });
     it('returns true for ([1, 2, 3],3)', function () {
-      expect(_.contains([1, 2, 3],3)).to.be.true;
+      expect(_.contains([1, 2, 3], 3)).to.be.true;
     });
     it('returns false for ([1, 2, 3],4)', function () {
-      expect(_.contains([1, 2, 3],4)).to.be.false;
+      expect(_.contains([1, 2, 3], 4)).to.be.false;
     });
     it('returns true for ([1, 2, apple],apple)', function () {
-      expect(_.contains([1, 2, 'apple'],'apple')).to.be.true;
+      expect(_.contains([1, 2, 'apple'], 'apple')).to.be.true;
     });
     it('returns false for ([1, 2, pear],apple)', function () {
-      expect(_.contains([1, 2, 'pear'],'apple')).to.be.false;
+      expect(_.contains([1, 2, 'pear'], 'apple')).to.be.false;
     });
-  })
-
+  });
 });
