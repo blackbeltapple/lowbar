@@ -193,7 +193,7 @@ describe('_', function () {
       expect(_.map).to.be.a('function');
     });
     it('returns an array', function () {
-      expect(_.map([1,2,3], function (num) { return num * 3;})).to.be.an('array');
+      expect(_.map([1, 2, 3], function (num) { return num * 3; })).to.be.an('array');
     });
     it('takes two parameters', function () {
       expect(_.map.length).to.equal(2);
@@ -203,7 +203,7 @@ describe('_', function () {
     });
     // _.map([1, 2, 3], function(num){ return num * 3; });
     it('returns correct values when passed values', function () {
-      expect(_.map([1, 2, 3], function(num){ return num * 3; })).to.eql([3,6,9]);
+      expect(_.map([1, 2, 3], function (num) { return num * 3; })).to.eql([3, 6, 9]);
     });
     it('accepts objects as param one', function () {
       var output = _.map({one: 1, two: 2, three: 3}, function(num, key){ return num * 3; });
@@ -253,6 +253,7 @@ describe('_', function () {
       expect(_.pluck(stooges2, 'name')).to.eql(["moe", undefined, "curly"]);
     });
   });
+
   describe('#where()', function () {
     var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 50}];
     var testArray1 = [{a: 1, b: 2, c: 3}, {a: 1, c: 3}, {a: 1, b: 7}, {a: 9, f: 11, j: 99}];
@@ -279,5 +280,29 @@ describe('_', function () {
       expect(_.where(stooges, {age: 50})).to.eql([{name: 'larry', age: 50}, {name: 'curly', age: 50}]);
     });
   });
+
+  describe('#contains()', function () {
+    it('is a function', function () {
+      expect(_.contains).to.be.a('function')
+    });
+    xit('returns a boolean', function () {
+      expect(_.contains([1], 2)).to.be.a('boolean')
+    });
+    it('takes two or three parameters', function () {
+      expect(_.contains.length).to.within(2, 3);
+    });
+    it('returns true for ([1, 2, 3],3)', function () {
+      expect(_.contains([1, 2, 3],3)).to.be.true;
+    });
+    it('returns false for ([1, 2, 3],4)', function () {
+      expect(_.contains([1, 2, 3],4)).to.be.false;
+    });
+    it('returns true for ([1, 2, apple],apple)', function () {
+      expect(_.contains([1, 2, 'apple'],'apple')).to.be.true;
+    });
+    it('returns false for ([1, 2, pear],apple)', function () {
+      expect(_.contains([1, 2, 'pear'],'apple')).to.be.false;
+    });
+  })
 
 });

@@ -13,14 +13,10 @@ _.each = function (list, fn) {
   return list
 }
 
-// _.identity function//
-//
 _.identity = function (value) {
   return value;
 };
 
-// _.first function//
-//
 _.first = function (list, item) {
   if (Array.isArray(list)) {
     var result = [];
@@ -34,8 +30,6 @@ _.first = function (list, item) {
   }
 };
 
-// _.last function//
-//
 _.last = function (list, item) {
   if (Array.isArray(list)) {
     var result = [];
@@ -48,8 +42,6 @@ _.last = function (list, item) {
     return result;
   }
 };
-
-// _.indexOf function//
 
 _.indexOf = function (array, value) {
   if (array === undefined || value === undefined) {
@@ -66,8 +58,6 @@ _.indexOf = function (array, value) {
   }
 };
 
-// _.filter function//
-
 _.filter = function (list, fn) {
   var newArray = [];
   if (list !== undefined) {
@@ -82,8 +72,6 @@ _.filter = function (list, fn) {
   }
 };
 
-// _.reject function//
-
 _.reject = function (list, fn) {
   var newArray = [];
   if (list !== undefined) {
@@ -97,8 +85,6 @@ _.reject = function (list, fn) {
     return [];
   }
 };
-
-// _.uniq function
 
 _.uniq = function (list) {
   var newArray = [];
@@ -134,10 +120,6 @@ _.pluck = function (list, propertyName) {
   return propArray;
 }
 
-_.reduce = function (list, iteratee) {
-
-}
-
 _.where = function (list, properties) {
   var newArray = [];
   // iterate over every item in the array and push it to the new array if
@@ -152,6 +134,11 @@ _.where = function (list, properties) {
     if (match) newArray.push(obj);
   });
   return newArray;
+}
+
+_.contains = function (list, value) {
+  if(list.indexOf(value) === -1) return false;
+  return true;
 }
 
 if (typeof module !== 'undefined') {
