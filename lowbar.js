@@ -1,17 +1,17 @@
-var _ = {}
+var _ = {};
 
 _.each = function (list, fn) {
   if (Array.isArray(list)) {
     for (var i = 0; i < list.length; i++) {
-      fn(list[i])
+      fn(list[i]);
     }
   } else {
     for (var key in list) {
-      fn(list[key])
+      fn(list[key]);
     }
   }
-  return list
-}
+  return list;
+};
 
 _.identity = function (value) {
   return value;
@@ -100,7 +100,7 @@ _.uniq = function (list) {
 _.map = function (list, iteratee) {
   if (list === undefined) return [];
   var newArray = [];
-  if(Array.isArray(list)) {
+  if (Array.isArray(list)) {
     for (var i = 0; i < list.length; i++) {
       newArray.push(iteratee(list[i]));
     }
@@ -118,7 +118,7 @@ _.pluck = function (list, propertyName) {
     return item[propertyName];
   });
   return propArray;
-}
+};
 
 _.where = function (list, properties) {
   var newArray = [];
@@ -134,12 +134,12 @@ _.where = function (list, properties) {
     if (match) newArray.push(obj);
   });
   return newArray;
-}
+};
 
 _.contains = function (list, value) {
-  if(list.indexOf(value) === -1) return false;
+  if (list.indexOf(value) === -1) return false;
   return true;
-}
+};
 
 if (typeof module !== 'undefined') {
   module.exports = _;
