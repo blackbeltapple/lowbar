@@ -1,13 +1,29 @@
 var _ = {};
 
-_.each = function (list, fn) {
+// without context
+// _.each = function (list, fn) {
+//   if (Array.isArray(list)) {
+//     for (var i = 0; i < list.length; i++) {
+//       fn(list[i], i, list);
+//     }
+//   } else {
+//     for (var key in list) {
+//       fn(list[key], i, list);
+//     }
+//   }
+//   return list;
+// };
+
+// With context param
+_.each = function (list, fn, context) {
+  context = context || this;
   if (Array.isArray(list)) {
     for (var i = 0; i < list.length; i++) {
-      fn(list[i]);
+      fn.call(context, list[i], i, list);
     }
   } else {
     for (var key in list) {
-      fn(list[key]);
+      fn.call(context, list[key], key, list);
     }
   }
   return list;

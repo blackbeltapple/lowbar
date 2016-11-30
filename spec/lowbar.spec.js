@@ -12,7 +12,7 @@ describe('_', function () {
   it('is an object', function () {
     expect(_).to.be.an('object');
   });
-  describe('#each', function () {
+  describe.only('#each', function () {
     it('is a function', function () {
       expect(_.each).to.be.a('function');
     });
@@ -42,6 +42,14 @@ describe('_', function () {
       var testFn = function (value) { testArr.push(value); };
       _.each({ name: 'ada', age: '34' }, testFn);
       expect(testArr).to.eql(['ada', '34']);
+    });
+    // Tests that feature the optional context parameter
+    it('binds to the context, if pass one', function () {
+      var myContext = {name: 'abc'};
+      _.each([1, 2,3 ], function (elem, i, list) {
+        this.name = 'new text'
+        }, myContext);
+      expect(myContext).to.eql({name: 'new text'});;
     });
   });
 
