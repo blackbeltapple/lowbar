@@ -46,10 +46,10 @@ describe('_', function () {
     // Tests that feature the optional context parameter
     it('binds to the context, if pass one', function () {
       var myContext = {name: 'abc'};
-      _.each([1, 2,3 ], function (elem, i, list) {
-        this.name = 'new text'
-        }, myContext);
-      expect(myContext).to.eql({name: 'new text'});;
+      _.each([1, 2, 3], function (elem, i, list) {
+        this.name = 'new text';
+      }, myContext);
+      expect(myContext).to.eql({name: 'new text'});
     });
   });
 
