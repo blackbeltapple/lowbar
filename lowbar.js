@@ -1,3 +1,35 @@
+/*
+// DONE --------------------
+// 1. identity
+// 2. first
+// 3. last
+// 4. each
+// 5. indexOf
+// 6. filter
+// 7. reject
+// 8. uniq
+// 9. map
+// 10. pluck
+// 11. reduce
+// 12. contains
+// 13. every
+// 14. some
+// TO DO -----------------
+// 15. extends
+// 16. defaults
+// 17. once
+// 18. memoize
+// 19. delay
+// 20. shuffle
+// 21. invoke
+// 22. sortBy
+// 23. zip
+// 24. flatten
+// 25. intersection
+// 26. difference
+// 27. throttle
+*/
+
 var _ = {};
 
 // With context param
@@ -145,6 +177,20 @@ _.pluck = function (list, propertyName) {
   });
   return propArray;
 };
+
+_.reduce = function (list, iteratee, memo) {
+  if (memo === undefined) {
+    memo = list[0];
+    for (var i = 1; i < list.length; i++) {
+      memo = iteratee(memo, list[i], i, list);
+    }
+  } else {
+    for (var i = 0; i < list.length; i++) {
+      memo = iteratee(memo, list[i], i, list);
+    }
+  }
+  return memo;
+}
 
 _.where = function (list, properties) {
   var newArray = [];

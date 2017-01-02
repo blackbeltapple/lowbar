@@ -269,22 +269,23 @@ describe('_', function () {
   });
 
   describe('#reduce()', function () {
-    xit('is a function', function () {
+    it('is a function', function () {
       expect(_.reduce).to.be.a('function');
     });
-    xit('takes two to four parameters', function () {
-      expect(_.reduce.length).to.equal(2);
+    it('takes two to four parameters', function () {
+      expect(_.reduce.length).to.equal(3);
     });
-    xit('returns an empty array when passed empty array', function () {
-      expect(_.pluck([], 'name')).to.eql([]);
+    it('returns correct value when passed memo ', function () {
+      expect(_.reduce([1, 2, 3], function(memo, num){ return memo + num; }, 0)).to.eql(6);
     });
-    var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
-    xit('returns [moe, larry, curly]', function () {
-      expect(_.pluck(stooges, 'name')).to.eql(['moe', 'larry', 'curly']);
+    it('returns correct value when not passed a memo', function () {
+      expect(_.reduce([1, 2, 3], function(memo, num){ return memo + num; })).to.eql(6);
     });
-    var stooges2 = [{name: 'moe', age: 40}, {age: 50}, {name: 'curly', age: 60}];
-    xit('returns element of undefined if input array contains an object without the propertyName', function () {
-      expect(_.pluck(stooges2, 'name')).to.eql(['moe', undefined, 'curly']);
+    it('returns correct value when passed a memo and asked to total squares of vals', function () {
+      expect(_.reduce([1, 2, 3], function(memo, num){ return memo + (num * num); }, 2)).to.eql(16);
+    });
+    it('returns correct value when not passed a memo and asked to total squares of vals', function () {
+      expect(_.reduce([1, 2, 3], function(memo, num){ return memo + (num * num); })).to.eql(14);
     });
   });
 

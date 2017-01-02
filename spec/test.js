@@ -1,5 +1,6 @@
 var _ = require('underscore');
-var array = [1,2,3,4,5, 6, 7]
-var first = array.slice(0, Math.floor(array.length/2))
-var second = array.slice(Math.floor(array.length/2))
-console.log(first, second)
+var fun = function (num) {return num}
+var res = _.reduce([1,2,3], function(memo, value, index, list) {
+  
+}, 1)
+console.log(res)
