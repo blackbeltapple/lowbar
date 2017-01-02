@@ -12,7 +12,7 @@ describe('_', function () {
   it('is an object', function () {
     expect(_).to.be.an('object');
   });
-  describe.only('#each', function () {
+  describe('#each', function () {
     it('is a function', function () {
       expect(_.each).to.be.a('function');
     });
@@ -243,10 +243,10 @@ describe('_', function () {
   });
 
   describe('#reduce()', function () {
-    it('is a function', function () {
+    xit('is a function', function () {
       expect(_.reduce).to.be.a('function');
     });
-    it('takes two to four parameters', function () {
+    xit('takes two to four parameters', function () {
       expect(_.reduce.length).to.equal(2);
     });
     xit('returns an empty array when passed empty array', function () {

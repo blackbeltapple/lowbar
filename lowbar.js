@@ -1,19 +1,5 @@
 var _ = {};
 
-// without context
-// _.each = function (list, fn) {
-//   if (Array.isArray(list)) {
-//     for (var i = 0; i < list.length; i++) {
-//       fn(list[i], i, list);
-//     }
-//   } else {
-//     for (var key in list) {
-//       fn(list[key], i, list);
-//     }
-//   }
-//   return list;
-// };
-
 // With context param
 _.each = function (list, fn, context) {
   context = context || this;
@@ -36,9 +22,7 @@ _.identity = function (value) {
 _.first = function (list, item) {
   if (Array.isArray(list)) {
     var result = [];
-    if (item === undefined) {
-      item = 1;
-    }
+    item = item || 1;
     for (var i = 0; i < item; i++) {
       result.push(list[i]);
     }
