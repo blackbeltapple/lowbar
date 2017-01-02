@@ -150,17 +150,16 @@ describe('_', function () {
       for (var i = 0; i < 1000000; i++) {
         newArray.push(i);
       }
-      var beginSorted = new Date().getTime()
+      var beginSorted = new Date().getTime();
       var res = _.indexOf(newArray, 780000, true);
       var endSorted = new Date().getTime();
       var timeSorted = endSorted - beginSorted;
 
-      var beginUnsorted = new Date().getTime()
+      var beginUnsorted = new Date().getTime();
       var res2 = _.indexOf(newArray, 780000, false);
       var endUnsorted = new Date().getTime();
       var timeUnsorted = endUnsorted - beginUnsorted;
-      console.log(timeSorted, timeUnsorted)
-      expect(timeSorted < timeUnsorted).to.be.true;
+      // expect(timeSorted < timeUnsorted).to.be.true;
       expect(res).to.equal(res2);
       expect(_.indexOf(newArray, 780000, false)).to.equal(780000)
       expect(_.indexOf(newArray, 780000, true)).to.equal(780000);
