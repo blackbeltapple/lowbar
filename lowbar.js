@@ -163,8 +163,28 @@ _.where = function (list, properties) {
 };
 
 _.contains = function (list, value) {
+  list = list || [];
   if (list.indexOf(value) === -1) return false;
   return true;
+};
+
+_.every = function (list, predicate) {
+  list = list || [];
+  predicate = predicate || function (val) {};
+  for (var i = 0; i < list.length; i++) {
+    if (!predicate(list[i])) return false;
+  }
+  return true;
+};
+
+_.some = function (list, predicate) {
+  list = list || [];
+  predicate = predicate || function (val) {};
+  var flag = false;
+  for (var i = 0; i < list.length; i++) {
+    if (predicate(list[i])) flag = true;
+  }
+  return flag;
 };
 
 if (typeof module !== 'undefined') {

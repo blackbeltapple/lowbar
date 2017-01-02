@@ -319,8 +319,8 @@ describe('_', function () {
     it('is a function', function () {
       expect(_.contains).to.be.a('function');
     });
-    xit('returns a boolean', function () {
-      expect(_.contains([1], 2)).to.be.a('boolean');
+    it('returns a boolean', function () {
+      expect(_.contains()).to.be.a('boolean');
     });
     it('takes two or three parameters', function () {
       expect(_.contains.length).to.within(2, 3);
@@ -331,11 +331,63 @@ describe('_', function () {
     it('returns false for ([1, 2, 3],4)', function () {
       expect(_.contains([1, 2, 3], 4)).to.be.false;
     });
-    it('returns true for ([1, 2, apple],apple)', function () {
+    it('returns true for ([1, 2, apple], apple)', function () {
       expect(_.contains([1, 2, 'apple'], 'apple')).to.be.true;
     });
-    it('returns false for ([1, 2, pear],apple)', function () {
+    it('returns false for ([1, 2, pear], apple)', function () {
       expect(_.contains([1, 2, 'pear'], 'apple')).to.be.false;
     });
   });
+
+  describe ('#every()', function () {
+    it('is a function', function () {
+      expect(_.every).to.be.a('function');
+    });
+    it('returns a boolean', function () {
+      expect(_.every()).to.be.a('boolean');
+    });
+    it('expects two parameters', function () {
+      expect(_.every.length).to.equal(2);
+    });
+
+    it('returns true if every element is true', function () {
+      var result = _.every([true, true, true], function (element) {
+        return !!element;
+      });
+      expect(result).to.equal(true);
+    });
+    it('returns false if every element is false', function () {
+      var result = _.every([false, false, false], function (element) {
+        return !!element;
+      });
+      expect(result).to.equal(false);
+    });
+    it('returns false if a single element fails the truth test', function () {
+      var result = _.every([2, 4, 6, 8, 10, 11], function (element) {
+        return element % 2 === 0;
+      });
+      expect(result).to.equal(false);
+    });
+    it('returns false if all elements fail the truth test', function () {
+      var result = _.every([1, 3, 5, 7, 9], function (element) {
+        return element % 2 === 0;
+      });
+      expect(result).to.equal(false);
+    });
+
+
+  });
+
+  describe ('#some()', function () {
+    it('is a function', function () {
+      expect(_.some).to.be.a('function');
+    });
+    it('returns a boolean', function () {
+      expect(_.some()).to.be.a('boolean');
+    });
+    it('expects two parameters', function () {
+      expect(_.some.length).to.equal(2);
+    });
+  });
+
 });
