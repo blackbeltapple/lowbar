@@ -1,4 +1,5 @@
 var _ = require('underscore');
-var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
-
-console.log(_.pluck(stooges, 'name'));
+var array = [1,2,3,4,5, 6, 7]
+var first = array.slice(0, Math.floor(array.length/2))
+var second = array.slice(Math.floor(array.length/2))
+console.log(first, second)

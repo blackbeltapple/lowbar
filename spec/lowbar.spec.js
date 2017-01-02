@@ -139,6 +139,33 @@ describe('_', function () {
     it('if passed an array but no value, should return -1', function () {
       expect(_.indexOf([1, 2, 3, 3, 3])).to.equal(-1);
     });
+    // additional tests for 3rd param
+    it('returns same value regardless if 3rd param is true/false/undefined', function () {
+      expect(_.indexOf([1, 2, 3, 4, 5], 3)).to.equal(2);
+      expect(_.indexOf([1, 2, 3, 4, 5], 3, false)).to.equal(2);
+      expect(_.indexOf([1, 2, 3, 4, 5], 3, true)).to.equal(2);
+    });
+    it('should run quicker if using binary seach for sorted array', function () {
+      var newArray = [];
+      for (var i = 0; i < 1000000; i++) {
+        newArray.push(i);
+      }
+      var beginSorted = new Date().getTime()
+      var res = _.indexOf(newArray, 780000, true);
+      var endSorted = new Date().getTime();
+      var timeSorted = endSorted - beginSorted;
+
+      var beginUnsorted = new Date().getTime()
+      var res2 = _.indexOf(newArray, 780000, false);
+      var endUnsorted = new Date().getTime();
+      var timeUnsorted = endUnsorted - beginUnsorted;
+      console.log(timeSorted, timeUnsorted)
+      expect(timeSorted < timeUnsorted).to.be.true;
+      expect(res).to.equal(res2);
+      expect(_.indexOf(newArray, 780000, false)).to.equal(780000)
+      expect(_.indexOf(newArray, 780000, true)).to.equal(780000);
+    });
+
   });
 
     // testing _.filter function

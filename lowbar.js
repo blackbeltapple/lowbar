@@ -43,15 +43,41 @@ _.last = function (list, item) {
   }
 };
 
-_.indexOf = function (array, value) {
+_.indexOf = function (array, value, isSorted) {
+  isSorted = isSorted || false;
   if (array === undefined || value === undefined) {
     return -1;
   } else {
     var valueIndex = -1;
-    for (var i = 0; i < array.length; i++) {
-      if (array[i] === value) {
-        valueIndex = i;
-        break;
+    if (isSorted) {
+      // do binary search
+      // create offset
+      var offset = 0;
+      // while array length > 0
+      while (array.length > 0) {
+        // grab second half
+        var secondHalf = array.slice(Math.floor(array.length / 2));
+        // see if lasthalf[0] < searchterm
+        if (secondHalf[0] <= value) {
+          // if so, discard the first half
+          offset += Math.floor(array.length / 2);
+          if (secondHalf[0] === value) {
+            break;
+          }
+          array = secondHalf;
+        } else {
+          // if not, keep the first half
+          array = array.slice(0, Math.floor(array.length / 2));
+        }
+      }
+      return offset;
+    } else {
+      // search through elements in order
+      for (var i = 0; i < array.length; i++) {
+        if (array[i] === value) {
+          valueIndex = i;
+          break;
+        }
       }
     }
     return valueIndex;
