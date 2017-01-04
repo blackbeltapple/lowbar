@@ -184,19 +184,17 @@ _.pluck = function (list, propertyName) {
 };
 
 _.reduce = function (list, iteratee, memo) {
-  iteratee = iteratee || this.identity;
+  var newList = list.slice();
+  iteratee = iteratee || _.identity;
   if (memo === undefined) {
+    newList = list.slice(1);
     memo = list[0];
-    for (var i = 1; i < list.length; i++) {
-      memo = iteratee(memo, list[i], i, list);
-    }
-  } else {
-    for (var i = 0; i < list.length; i++) {
-      memo = iteratee(memo, list[i], i, list);
-    }
   }
+  _.each(newList, function (elem, ind, list) {
+    memo = iteratee(memo, elem, ind, list);
+  });
   return memo;
-}
+};
 
 _.where = function (list, properties) {
   var newArray = [];
