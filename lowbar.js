@@ -49,6 +49,7 @@ _.each = function (list, iteratee, context) {
 };
 
 _.identity = function (value) {
+  console.log('spy called');
   return value;
 };
 

@@ -1,6 +1,7 @@
 /* global describe, it, xit */
 var path = require('path');
 var expect = require('chai').expect;
+var sinon = require('sinon');
 
 var _ = require(path.join(__dirname, '..', './lowbar.js'));
 
@@ -50,6 +51,12 @@ describe('_', function () {
         this.name = 'new text';
       }, myContext);
       expect(myContext).to.eql({name: 'new text'});
+    });
+    it('calls the iteratee correct number of times', function () {
+      var spy = sinon.spy();
+      var myArray = [1, 2, 3, 4]
+      _.each(myArray, spy);
+      expect(spy.callCount).to.equal(4);
     });
   });
 
