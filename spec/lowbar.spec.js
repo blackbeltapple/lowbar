@@ -312,6 +312,19 @@ describe('_', function () {
     it('returns correct value when not passed a memo and asked to total squares of vals', function () {
       expect(_.reduce([1, 2, 3], function(memo, num){ return memo + (num * num); })).to.eql(14);
     });
+    it('calls the iteratee the correct number of times, when context passed', function () {
+      var doubleSpy = sinon.spy();
+      var myArray = [1, 2, 3, 4];
+      _.reduce(myArray, doubleSpy, 0);
+      expect(doubleSpy.callCount).to.equal(4);
+    });
+    it('calls the iteratee one less time if no context passed', function () {
+      var doubleSpy = sinon.spy();
+      var myArray = [1, 2, 3, 4];
+      _.reduce(myArray, doubleSpy);
+      expect(doubleSpy.callCount).to.equal(3);
+    });
+
   });
 
   describe('#where()', function () {
