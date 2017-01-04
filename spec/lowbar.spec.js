@@ -54,7 +54,7 @@ describe('_', function () {
     });
     it('calls the iteratee correct number of times', function () {
       var spy = sinon.spy();
-      var myArray = [1, 2, 3, 4]
+      var myArray = [1, 2, 3, 4];
       _.each(myArray, spy);
       expect(spy.callCount).to.equal(4);
     });
@@ -193,6 +193,12 @@ describe('_', function () {
     it('it returns an emty array when give an empty array', function () {
       expect(_.filter([])).to.eql([]);
     });
+    it('calls the iteratee correct number of times', function () {
+      var spy = sinon.spy();
+      var myArray = [1, 2, 3, 4];
+      _.filter(myArray, spy);
+      expect(spy.callCount).to.equal(4);
+    });
   });
 
   describe('#reject', function () {
@@ -211,6 +217,12 @@ describe('_', function () {
     });
     it('it returns an emty array when give an empty array', function () {
       expect(_.reject([])).to.eql([]);
+    });
+    it('calls the iteratee correct number of times', function () {
+      var spy = sinon.spy();
+      var myArray = [1, 2, 3, 4];
+      _.reject(myArray, spy);
+      expect(spy.callCount).to.equal(4);
     });
   });
 
