@@ -35,7 +35,7 @@ var _ = {};
 // With context param
 _.each = function (list, iteratee, context) {
   context = context || this;
-  iteratee = iteratee || this.identity;
+  iteratee = iteratee || _.identity;
   if (Array.isArray(list)) {
     for (var i = 0; i < list.length; i++) {
       iteratee.call(context, list[i], i, list);
@@ -118,12 +118,12 @@ _.indexOf = function (array, value, isSorted) {
   }
 };
 
-_.filter = function (list, fn) {
+_.filter = function (list, predicate) {
   var newArray = [];
-  fn = fn || this.identity;
+  predicate = predicate || _.identity;
   if (list !== undefined) {
     for (var i = 0; i < list.length; i++) {
-      if (fn(list[i])) {
+      if (predicate(list[i])) {
         newArray.push(list[i]);
       }
     }
@@ -133,12 +133,12 @@ _.filter = function (list, fn) {
   }
 };
 
-_.reject = function (list, fn) {
+_.reject = function (list, predicate) {
   var newArray = [];
-  fn = fn || this.identity;
+  predicate = predicate || _.identity;
   if (list !== undefined) {
     for (var i = 0; i < list.length; i++) {
-      if (!fn(list[i])) {
+      if (!predicate(list[i])) {
         newArray.push(list[i]);
       }
     }
@@ -160,15 +160,14 @@ _.uniq = function (list) {
 };
 
 _.map = function (list, iteratee) {
-  iteratee = iteratee || this.identity;
+  iteratee = iteratee || _.identity;
   if (list === undefined) return [];
   var newArray = [];
   if (Array.isArray(list)) {
     for (var i = 0; i < list.length; i++) {
       newArray.push(iteratee(list[i]));
     }
-  } else // if object
-  {
+  } else { // if object
     for (var key in list) {
       newArray.push(iteratee(list[key]));
     }
