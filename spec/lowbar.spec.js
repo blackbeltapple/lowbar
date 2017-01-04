@@ -262,6 +262,12 @@ describe('_', function () {
       var output = _.map({one: 1, two: 2, three: 3}, function (num, key) { return num * 3; });
       expect(output).to.eql([3, 6, 9]);
     });
+    it('calls the iteratee correct number of times', function () {
+      var spy = sinon.spy();
+      var myArray = [1, 2, 3, 4];
+      _.map(myArray, spy);
+      expect(spy.callCount).to.equal(4);
+    });
   });
 
   describe('#pluck()', function () {
