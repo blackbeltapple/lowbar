@@ -32,24 +32,6 @@
 
 var _ = {};
 
-/*
-// With context param
-_.each = function (list, iteratee, context) {
-  context = context || this;
-  iteratee = iteratee || _.identity;
-  if (Array.isArray(list)) {
-    for (var i = 0; i < list.length; i++) {
-      iteratee.call(context, list[i], i, list);
-    }
-  } else {
-    for (var key in list) {
-      iteratee.call(context, list[key], key, list);
-    }
-  }
-  return list;
-};
-*/
-
 _.identity = function (value) {
   return value;
 };
@@ -66,9 +48,8 @@ _.last = function (arr, num) {
 };
 
 _.each = function (list, iteratee, context) {
-  if (!list) return null;
-  if (!iteratee) return list;
-
+  iteratee = iteratee || _.identity;
+  // if no context passed, default to this
   context = context || this;
   // handle arrays
   if (Array.isArray(list)) {
