@@ -4,6 +4,8 @@
 // 2. first
 // 3. last
 // 4. each
+
+
 // 5. indexOf
 // 6. filter
 // 7. reject
@@ -64,6 +66,7 @@ _.each = function (list, iteratee, context) {
   return list;
 };
 
+/*
 _.indexOf = function (array, value, isSorted) {
   isSorted = isSorted || false;
   if (array === undefined || value === undefined) {
@@ -103,6 +106,18 @@ _.indexOf = function (array, value, isSorted) {
     }
     return valueIndex;
   }
+};
+*/
+
+_.indexOf = function (list, value, isSorted) {
+  if (!list || !value) return -1;
+
+  var startIndex;
+  typeof isSorted === 'number' ? startIndex = isSorted + 1 : startIndex = 0;
+  for (var i = startIndex; i < list.length; i++) {
+    if (list[i] === value) return i - startIndex;
+  }
+  return -1;
 };
 
 _.filter = function (list, predicate) {

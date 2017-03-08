@@ -78,7 +78,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#each', function () {
+  describe('#each', function () {
     it('is a function', function () {
       expect(_.each).to.be.a('function');
     });
@@ -129,54 +129,67 @@ describe('_', function () {
     });
   });
 
-  describe('#indexOf', function () {
+  describe.only('#indexOf', function () {
     it('is a function', function () {
       expect(_.indexOf).to.be.a('function');
     });
-    it('returns a number', function () {
-      expect(_.indexOf()).to.be.a('number');
+    it('accepts 2 or 3 arguments', function () {
+      expect(_.indexOf.length).to.be.within(2, 3);
     });
-    it('if no arguments passed then returns -1', function () {
-      expect(_.indexOf()).to.equal(-1);
-    });
-    it('if passed [1, 2, 3, 4, 5] and value = 3 will return 2', function () {
+    it('will return correct index for found values', function () {
       expect(_.indexOf([1, 2, 3, 4, 5], 3)).to.equal(2);
+      expect(_.indexOf([1, 2, 3, 4, 5], 1)).to.equal(0);
+      expect(_.indexOf([1, 2, 3, 4, 5], 5)).to.equal(4);
+      expect(_.indexOf(['the', 'quick', 'brown'], 'brown')).to.equal(2);
     });
-    it('if passed [1, 2, 3, 3, 3] and value = 3 will return 2', function () {
+    it('will return index of first instance if array contains multiple instances of value', function () {
       expect(_.indexOf([1, 2, 3, 3, 3], 3)).to.equal(2);
+      expect(_.indexOf(['the', 'brown', 'brown'], 'brown')).to.equal(1);
     });
-    it('if passed [1, 2, 3, 3, 3] and value = 8 will return -1', function () {
+    it('returns -1 if value not found', function () {
       expect(_.indexOf([1, 2, 3, 3, 3], 8)).to.equal(-1);
+      expect(_.indexOf(['the', 'quick', 'brown'], 'blue')).to.equal(-1);
     });
-    it('if passed an array but no value, should return -1', function () {
+    it('returns -1 if passed an array but no search value', function () {
       expect(_.indexOf([1, 2, 3, 3, 3])).to.equal(-1);
     });
-    // additional tests for 3rd param
-    it('returns same value regardless if 3rd param is true/false/undefined', function () {
-      expect(_.indexOf([1, 2, 3, 4, 5], 3)).to.equal(2);
-      expect(_.indexOf([1, 2, 3, 4, 5], 3, false)).to.equal(2);
-      expect(_.indexOf([1, 2, 3, 4, 5], 3, true)).to.equal(2);
-    });
-    it('should run quicker if using binary seach for sorted array', function () {
-      var newArray = [];
-      for (var i = 0; i < 1000000; i++) {
-        newArray.push(i);
-      }
-      var beginSorted = new Date().getTime();
-      var res = _.indexOf(newArray, 780000, true);
-      var endSorted = new Date().getTime();
-      var timeSorted = endSorted - beginSorted;
+    describe('when a boolean is passed as optional third param', function () {
+      it('always returns same value regardless of whether 3rd param is true/false/undefined', function () {
+        expect(_.indexOf([1, 2, 3, 4, 5], 3)).to.equal(2);
+        expect(_.indexOf([1, 2, 3, 4, 5], 3, false)).to.equal(2);
+        expect(_.indexOf([1, 2, 3, 4, 5], 3, true)).to.equal(2);
+      });
+      it('should run quicker if using binary search for sorted array', function () {
+        var newArray = [];
+        for (var i = 0; i < 1000000; i++) {
+          newArray.push(i);
+        }
+        var beginSorted = new Date().getTime();
+        var res = _.indexOf(newArray, 780000, true);
+        var endSorted = new Date().getTime();
+        var timeSorted = endSorted - beginSorted;
 
-      var beginUnsorted = new Date().getTime();
-      var res2 = _.indexOf(newArray, 780000, false);
-      var endUnsorted = new Date().getTime();
-      var timeUnsorted = endUnsorted - beginUnsorted;
-      // expect(timeSorted < timeUnsorted).to.be.true;
-      expect(res).to.equal(res2);
-      expect(_.indexOf(newArray, 780000, false)).to.equal(780000)
-      expect(_.indexOf(newArray, 780000, true)).to.equal(780000);
-    });
+        var beginUnsorted = new Date().getTime();
+        var res2 = _.indexOf(newArray, 780000, false);
+        var endUnsorted = new Date().getTime();
+        var timeUnsorted = endUnsorted - beginUnsorted;
 
+        expect(timeSorted < timeUnsorted).to.be.true;
+        expect(res).to.equal(res2);
+        expect(_.indexOf(newArray, 780000, false)).to.equal(780000);
+        expect(_.indexOf(newArray, 780000, true)).to.equal(780000);
+      });
+      it('if no arguments passed then returns -1', function () {
+        expect(_.indexOf()).to.equal(-1);
+      });
+    });
+    describe('when pass a starting index as optional third param', function () {
+      it('will return correct index for found values', function () {
+        expect(_.indexOf([1, 2, 3, 4, 3], 3, 2)).to.equal(1);
+        expect(_.indexOf([1, 2, 3, 4, 3], 3, 3)).to.equal(0);
+        expect(_.indexOf([1, 2, 3, 4, 5], 3, 2)).to.equal(-1);
+      });
+    });
   });
 
     // testing _.filter function
