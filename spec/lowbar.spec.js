@@ -52,7 +52,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#last', function () {
+  describe('#last', function () {
     it('is a function', function () {
       expect(_.last).to.be.a('function');
     });
@@ -78,32 +78,18 @@ describe('_', function () {
     });
   });
 
-    // testing _.indexOf function
-
-  describe('#each', function () {
+  describe.only('#each', function () {
     it('is a function', function () {
       expect(_.each).to.be.a('function');
     });
     it('accepts 2 or 3 arguments', function () {
       expect(_.each.length).to.be.within(2, 3);
     });
-    it('returns a list', function () {
-      expect(_.each([])).to.be.an('array');
-      expect(_.each({})).to.be.an('object');
-    });
-    it('passes each item in the list to a function', function () {
+    it('passes each item in a list to a function', function () {
       var testArr = [];
-      var testFn = function (num) { testArr.push(num * 2); };
+      var testFn = function (value) { testArr.push(value); };
       _.each([1, 2, 3], testFn);
-      expect(testArr).to.eql([2, 4, 6]);
-    });
-    it('returns the original list', function () {
-      var testFn = function (item) {};
-      expect(_.each([1, 2, 3], testFn)).to.eql([1, 2, 3]);
-    });
-    it('returns the original object', function () {
-      var testFn2 = function (item) {};
-      expect(_.each({name: 'ada', age: '34'}, testFn2)).to.eql({name: 'ada', age: '34'});
+      expect(testArr).to.eql([1, 2, 3]);
     });
     it('passes each value in an object to a function', function () {
       var testArr = [];
@@ -111,20 +97,35 @@ describe('_', function () {
       _.each({ name: 'ada', age: '34' }, testFn);
       expect(testArr).to.eql(['ada', '34']);
     });
-    // Tests that feature the optional context parameter
-    it('binds to the context, if pass one', function () {
-      var myContext = {name: 'abc'};
-      _.each([1, 2, 3], function (elem, i, list) {
-        this.name = 'new text';
-      }, myContext);
-      expect(myContext).to.eql({name: 'new text'});
-    });
-
-    it('calls the iteratee correct number of times', function () {
+    it('calls the iteratee the correct number of times', function () {
       var spy = sinon.spy();
       var myArray = [1, 2, 3, 4];
       _.each(myArray, spy);
       expect(spy.callCount).to.equal(4);
+    });
+    it('it calls the iterator with each element, index and array', function () {
+      var arr = [1, 2, 3];
+      var spy = sinon.spy();
+      _.each(arr, spy);
+      expect(spy.calledWith(1, 0, arr)).to.eql(true);
+      expect(spy.calledWith(2, 1, arr)).to.eql(true);
+      expect(spy.calledWith(3, 2, arr)).to.eql(true);
+      expect(spy.calledWith(3, 3, [])).to.eql(false);
+    });
+    it('returns the original list, for chaining', function () {
+      var testFn = function (item) { return item * 2; };
+      expect(_.each([1, 2, 3], testFn)).to.eql([1, 2, 3]);
+    });
+    it('returns the original object, for chaining', function () {
+      var testFn = function (item) { return item + '!'; };
+      expect(_.each({name: 'ada', age: '34'}, testFn)).to.eql({name: 'ada', age: '34'});
+    });
+    it('binds to the context, if one is passed', function () {
+      var myContext = {name: 'abc'};
+      _.each([1, 2, 3], function () {
+        this.name = 'new text';
+      }, myContext);
+      expect(myContext).to.eql({name: 'new text'});
     });
   });
 

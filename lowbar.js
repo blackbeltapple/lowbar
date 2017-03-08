@@ -33,22 +33,6 @@
 var _ = {};
 
 /*
-
-
-_.last = function (list, item) {
-  if (Array.isArray(list)) {
-    var result = [];
-    if (item === undefined) {
-      item = 1;  // default value if no param given
-    }
-    for (var i = list.length - item; i < list.length; i++) {
-      result.push(list[i]);
-    }
-    return result;
-  }
-};
-
-
 // With context param
 _.each = function (list, iteratee, context) {
   context = context || this;
@@ -68,7 +52,7 @@ _.each = function (list, iteratee, context) {
 
 _.identity = function (value) {
   return value;
-}
+};
 
 _.first = function (arr, num) {
   if (!arr) return undefined;
@@ -79,33 +63,25 @@ _.last = function (arr, num) {
   if (!arr) return undefined;
   var len = arr.length;
   return !num ? arr[len - 1] : arr.slice(len - num);
-}
-//
-// _.each = function (list, iteratee, context) {
-//   if (!list) return null;
-//   if (!iteratee) return list;
-//
-//   if (Array.isArray(list)) {
-//     var newArr = [];
-//     for (var i = 0; i < list.length; i++) {
-//       var newElement = iteratee(list[i], i, list);
-//       console.log(list[i], list.length, newElement);
-//       newArr.push(newElement);
-//     }
-//     return newArr;
-//   } else if (typeof list === 'object') {
-//     return list;
-//   } else {
-//     return null;
-//   }
-//
-// };
-//
+};
 
+_.each = function (list, iteratee, context) {
+  if (!list) return null;
+  if (!iteratee) return list;
 
-
-
-
+  context = context || this;
+  // handle arrays
+  if (Array.isArray(list)) {
+    for (var i = 0; i < list.length; i++) {
+      iteratee.call(context, list[i], i, list);
+    }
+  } else if (typeof list === 'object') { // handle objects
+    for (var key in list) {
+      iteratee.call(context, list[key], key, list);
+    }
+  }
+  return list;
+};
 
 _.indexOf = function (array, value, isSorted) {
   isSorted = isSorted || false;
