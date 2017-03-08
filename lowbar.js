@@ -34,21 +34,6 @@ var _ = {};
 
 /*
 
-_.identity = function (value) {
-  console.log('spy called');
-  return value;
-};
-
-_.first = function (list, item) {
-  if (Array.isArray(list)) {
-    var result = [];
-    item = item || 1;
-    for (var i = 0; i < item; i++) {
-      result.push(list[i]);
-    }
-    return result;
-  }
-};
 
 _.last = function (list, item) {
   if (Array.isArray(list)) {
@@ -95,26 +80,33 @@ _.each = function (list, iteratee, context) {
 _.identity = function (value) {
   return value;
 }
-_.each = function (list, iteratee, context) {
-  if (!list) return null;
-  if (!iteratee) return list;
 
-  if (Array.isArray(list)) {
-    var newArr = [];
-    for (var i = 0; i < list.length; i++) {
-      var newElement = iteratee(list[i], i, list);
-      console.log(list[i], list.length, newElement);
-      newArr.push(newElement);
-    }
-    return newArr;
-  } else if (typeof list === 'object') {
-    return list;
-  } else {
-    return null;
-  }
-
+_.first = function (array, num) {
+  if (!array) return undefined;
+  return !num ? array[0] : array.slice(0, num);
 };
 
+//
+// _.each = function (list, iteratee, context) {
+//   if (!list) return null;
+//   if (!iteratee) return list;
+//
+//   if (Array.isArray(list)) {
+//     var newArr = [];
+//     for (var i = 0; i < list.length; i++) {
+//       var newElement = iteratee(list[i], i, list);
+//       console.log(list[i], list.length, newElement);
+//       newArr.push(newElement);
+//     }
+//     return newArr;
+//   } else if (typeof list === 'object') {
+//     return list;
+//   } else {
+//     return null;
+//   }
+//
+// };
+//
 
 
 
