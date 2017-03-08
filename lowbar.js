@@ -32,21 +32,7 @@
 
 var _ = {};
 
-// With context param
-_.each = function (list, iteratee, context) {
-  context = context || this;
-  iteratee = iteratee || _.identity;
-  if (Array.isArray(list)) {
-    for (var i = 0; i < list.length; i++) {
-      iteratee.call(context, list[i], i, list);
-    }
-  } else {
-    for (var key in list) {
-      iteratee.call(context, list[key], key, list);
-    }
-  }
-  return list;
-};
+/*
 
 _.identity = function (value) {
   console.log('spy called');
@@ -76,6 +62,64 @@ _.last = function (list, item) {
     return result;
   }
 };
+
+
+// With context param
+_.each = function (list, iteratee, context) {
+  context = context || this;
+  iteratee = iteratee || _.identity;
+  if (Array.isArray(list)) {
+    for (var i = 0; i < list.length; i++) {
+      iteratee.call(context, list[i], i, list);
+    }
+  } else {
+    for (var key in list) {
+      iteratee.call(context, list[key], key, list);
+    }
+  }
+  return list;
+};
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+_.identity = function (value) {
+  return value;
+}
+_.each = function (list, iteratee, context) {
+  if (!list) return null;
+  if (!iteratee) return list;
+
+  if (Array.isArray(list)) {
+    var newArr = [];
+    for (var i = 0; i < list.length; i++) {
+      var newElement = iteratee(list[i], i, list);
+      console.log(list[i], list.length, newElement);
+      newArr.push(newElement);
+    }
+    return newArr;
+  } else if (typeof list === 'object') {
+    return list;
+  } else {
+    return null;
+  }
+
+};
+
+
+
+
+
+
 
 _.indexOf = function (array, value, isSorted) {
   isSorted = isSorted || false;

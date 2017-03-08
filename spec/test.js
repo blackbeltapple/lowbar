@@ -1,6 +1,10 @@
-var _ = require('underscore');
-var fun = function (num) {return num}
-var res = _.reduce([1,2,3], function(memo, value, index, list) {
-  
-}, 1)
-console.log(res)
+var ___ = require('underscore');
+
+startArr = [1,2,3]
+function triple (num) {
+  console.log (num * 3);
+  var answer = num * 3;
+  return answer;
+}
+var arr = ___.each( startArr, triple);
+console.log(startArr);
