@@ -27,7 +27,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#first', function () {
+  describe('#first', function () {
     it('is a function', function () {
       expect(_.first).to.be.a('function');
     });
@@ -52,23 +52,28 @@ describe('_', function () {
     });
   });
 
-  // testing _.last function
-
-  describe('#last', function () {
+  describe.only('#last', function () {
     it('is a function', function () {
       expect(_.last).to.be.a('function');
     });
     it('it accepts 1 or 2 arguments', function () {
       expect(_.last.length).to.be.within(1, 2);
     });
-    it('returns an array', function () {
-      expect(_.last([])).to.be.a('array');
+    it('returns the last item in array if only one argument passed', function () {
+      expect(_.last([4, 6, 7, 8, 9])).to.eql(9);
+      expect(_.last([[1, 2, 3], 8, 9])).to.eql(9);
+      expect(_.last([[1, 2, 3], 8, 9, [1, 2]])).to.eql([1, 2]);
     });
-    it('returns the expected values from a the head of given array', function () {
+    it('returns the last char if passed a string', function () {
+      expect(_.last('Test')).to.eql('t');
+    });
+    it('returns multiple values from the tail of given array', function () {
       expect(_.last([4, 6, 7, 8, 9], 3)).to.eql([7, 8, 9]);
-      expect(_.last([4, 6, 7, 8, 9])).to.eql([9]);
     });
-    it('receives no parameters, it returns undefined', function () {
+    it('it returns undefined if last arg is not an array or a string', function () {
+      expect(_.last(false)).to.be.undefined;
+      expect(_.last({name: 'moe'})).to.be.undefined;
+      expect(_.last(99)).to.be.undefined;
       expect(_.last()).to.be.undefined;
     });
   });

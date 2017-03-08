@@ -66,26 +66,20 @@ _.each = function (list, iteratee, context) {
 };
 */
 
-
-
-
-
-
-
-
-
-
-
-
 _.identity = function (value) {
   return value;
 }
 
-_.first = function (array, num) {
-  if (!array) return undefined;
-  return !num ? array[0] : array.slice(0, num);
+_.first = function (arr, num) {
+  if (!arr) return undefined;
+  return !num ? arr[0] : arr.slice(0, num);
 };
 
+_.last = function (arr, num) {
+  if (!arr) return undefined;
+  var len = arr.length;
+  return !num ? arr[len - 1] : arr.slice(len - num);
+}
 //
 // _.each = function (list, iteratee, context) {
 //   if (!list) return null;
