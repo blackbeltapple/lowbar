@@ -7,8 +7,8 @@
 // 5. indexOf  (can't get binary search to work faster)
 // 6. filter
 // 7. reject
-
 // 8. uniq
+
 // 9. map
 // 10. pluck
 // 11. reduce
@@ -136,16 +136,17 @@ _.uniq = function (list, isSorted, iteratee) {
 };
 
 _.map = function (list, iteratee) {
+
   iteratee = iteratee || _.identity;
   if (list === undefined) return [];
   var newArray = [];
   if (Array.isArray(list)) {
     for (var i = 0; i < list.length; i++) {
-      newArray.push(iteratee(list[i]));
+      newArray.push(iteratee(list[i], i, list));
     }
   } else { // if object
     for (var key in list) {
-      newArray.push(iteratee(list[key]));
+      newArray.push(iteratee(list[key], key, list));
     }
   }
   return newArray;
