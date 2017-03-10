@@ -92,13 +92,13 @@ _.indexOf = function (list, value, isSorted) {
   return -1;
 };
 
-_.filter = function (list, predicate) {
+_.filter = function (list, predicate, context) {
   list = list || [];
   predicate = predicate || _.identity;
 
   var filteredArray = [];
   for (var i = 0; i < list.length; i++) {
-    if (predicate(list[i])) {
+    if (predicate.call(context, list[i])) {
       filteredArray.push(list[i]);
     }
   }

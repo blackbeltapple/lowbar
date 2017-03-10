@@ -192,7 +192,7 @@ describe('_', function () {
     });
   });
 
-  describe('#filter', function () {
+  describe.only('#filter', function () {
     it('is a function', function () {
       expect(_.filter).to.be.a('function');
     });
@@ -218,11 +218,11 @@ describe('_', function () {
       var predicate = function (element) {
         return element > this.val;
       };
-      expect(_.reject(myArray, predicate, obj)).to.eql([33, 44]);
+      expect(_.filter(myArray, predicate, obj)).to.eql([33, 44]);
     });
   });
 
-  describe.only('#reject', function () {
+  describe('#reject', function () {
     it('is a function', function () {
       expect(_.reject).to.be.a('function');
     });
