@@ -6,8 +6,8 @@
 // 4. each
 // 5. indexOf  (can't get binary search to work faster)
 // 6. filter
-
 // 7. reject
+
 // 8. uniq
 // 9. map
 // 10. pluck
@@ -105,34 +105,21 @@ _.filter = function (list, predicate) {
   return filteredArray;
 };
 
-_.reject = function (list, predicate) {
+_.reject = function (list, predicate, context) {
   list = list || [];
   predicate = predicate || _.identity;
 
   var filteredArray = [];
   for (var i = 0; i < list.length; i++) {
-    if (!predicate(list[i])) {
+    if (!predicate.call(context, list[i])) {
       filteredArray.push(list[i]);
     }
   }
   return filteredArray;
-/*
-  var newArray = [];
-  predicate = predicate || _.identity;
-  if (list !== undefined) {
-    for (var i = 0; i < list.length; i++) {
-      if (!predicate(list[i])) {
-        newArray.push(list[i]);
-      }
-    }
-    return newArray;
-  } else {
-    return [];
-  }
-  */
 };
 
 _.uniq = function (list) {
+  /*
   var newArray = [];
   if (list === undefined) return [];
   for (var i = 0; i < list.length; i++) {
@@ -141,6 +128,8 @@ _.uniq = function (list) {
     }
   }
   return newArray;
+  */
+
 };
 
 _.map = function (list, iteratee) {

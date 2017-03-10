@@ -212,6 +212,14 @@ describe('_', function () {
       _.filter(myArray, spy);
       expect(spy.callCount).to.equal(4);
     });
+    it('uses the context correctly when one is passed', function () {
+      var obj = {val: 25};
+      var myArray = [11, 22, 33, 44];
+      var predicate = function (element) {
+        return element > this.val;
+      };
+      expect(_.reject(myArray, predicate, obj)).to.eql([33, 44]);
+    });
   });
 
   describe.only('#reject', function () {
@@ -233,6 +241,14 @@ describe('_', function () {
       var myArray = [1, 2, 3, 4];
       _.reject(myArray, spy);
       expect(spy.callCount).to.equal(4);
+    });
+    it('uses the context correctly when one is passed', function () {
+      var obj = {val: 25};
+      var myArray = [11, 22, 33, 44];
+      var predicate = function (element) {
+        return element > this.val;
+      };
+      expect(_.reject(myArray, predicate, obj)).to.eql([11, 22]);
     });
   });
 
