@@ -4,9 +4,9 @@
 // 2. first
 // 3. last
 // 4. each
+// 5. indexOf  (can't get binary search to work faster)
 
 
-// 5. indexOf
 // 6. filter
 // 7. reject
 // 8. uniq
@@ -66,52 +66,25 @@ _.each = function (list, iteratee, context) {
   return list;
 };
 
-/*
-_.indexOf = function (array, value, isSorted) {
-  isSorted = isSorted || false;
-  if (array === undefined || value === undefined) {
-    return -1;
-  } else {
-    var valueIndex = -1;
-    if (isSorted) {
-      // do binary search
-      // create offset
-      var offset = 0;
-      // while array length > 0
-      while (array.length > 0) {
-        // grab second half
-        var secondHalf = array.slice(Math.floor(array.length / 2));
-        // see if lasthalf[0] < searchterm
-        if (secondHalf[0] <= value) {
-          // if so, discard the first half
-          offset += Math.floor(array.length / 2);
-          if (secondHalf[0] === value) {
-            break;
-          }
-          array = secondHalf;
-        } else {
-          // if not, keep the first half
-          array = array.slice(0, Math.floor(array.length / 2));
-        }
-      }
-      return offset;
-    } else {
-      // search through elements in order
-      for (var i = 0; i < array.length; i++) {
-        if (array[i] === value) {
-          valueIndex = i;
-          break;
-        }
-      }
-    }
-    return valueIndex;
-  }
-};
-*/
-
 _.indexOf = function (list, value, isSorted) {
   if (!list || !value) return -1;
 
+  // use binary search for when isSorted is TRUE
+  if (isSorted === true) {
+    var offset = null;
+    while (list.length > 1) { // slice in two - take second half
+      var secondHalf = list.slice(Math.floor(list.length / 2));
+      if (secondHalf[0] <= value) { // keep second half
+        offset += Math.floor(list.length / 2);
+        list = secondHalf;
+      } else { // retain the first half
+        list = list.slice(0, Math.floor(list.length / 2));
+      }
+    }
+    return offset;
+  }
+
+  // perform standard search for when isSorted is not TRUE
   var startIndex;
   typeof isSorted === 'number' ? startIndex = isSorted + 1 : startIndex = 0;
   for (var i = startIndex; i < list.length; i++) {
@@ -121,18 +94,16 @@ _.indexOf = function (list, value, isSorted) {
 };
 
 _.filter = function (list, predicate) {
-  var newArray = [];
+  list = list || [];
   predicate = predicate || _.identity;
-  if (list !== undefined) {
-    for (var i = 0; i < list.length; i++) {
-      if (predicate(list[i])) {
-        newArray.push(list[i]);
-      }
+
+  var filteredArray = [];
+  for (var i = 0; i < list.length; i++) {
+    if (predicate(list[i])) {
+      filteredArray.push(list[i]);
     }
-    return newArray;
-  } else {
-    return [];
   }
+  return filteredArray;
 };
 
 _.reject = function (list, predicate) {

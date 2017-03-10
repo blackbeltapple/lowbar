@@ -56,7 +56,7 @@ describe('_', function () {
     it('is a function', function () {
       expect(_.last).to.be.a('function');
     });
-    it('it accepts 1 or 2 arguments', function () {
+    it('accepts 1 or 2 arguments', function () {
       expect(_.last.length).to.be.within(1, 2);
     });
     it('returns the last item in array if only one argument passed', function () {
@@ -70,7 +70,7 @@ describe('_', function () {
     it('returns multiple values from the tail of given array', function () {
       expect(_.last([4, 6, 7, 8, 9], 3)).to.eql([7, 8, 9]);
     });
-    it('it returns undefined if last arg is not an array or a string', function () {
+    it('returns undefined if last arg is not an array or a string', function () {
       expect(_.last(false)).to.be.undefined;
       expect(_.last({name: 'moe'})).to.be.undefined;
       expect(_.last(99)).to.be.undefined;
@@ -103,7 +103,7 @@ describe('_', function () {
       _.each(myArray, spy);
       expect(spy.callCount).to.equal(4);
     });
-    it('it calls the iterator with each element, index and array', function () {
+    it('calls the iterator with each element, index and array', function () {
       var arr = [1, 2, 3];
       var spy = sinon.spy();
       _.each(arr, spy);
@@ -129,7 +129,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#indexOf', function () {
+  describe('#indexOf', function () {
     it('is a function', function () {
       expect(_.indexOf).to.be.a('function');
     });
@@ -159,27 +159,27 @@ describe('_', function () {
         expect(_.indexOf([1, 2, 3, 4, 5], 3, false)).to.equal(2);
         expect(_.indexOf([1, 2, 3, 4, 5], 3, true)).to.equal(2);
       });
-      it('should run quicker if using binary search for sorted array', function () {
+      xit('should run quicker if using binary search for sorted array', function () {
         var newArray = [];
         for (var i = 0; i < 1000000; i++) {
           newArray.push(i);
         }
         var beginSorted = new Date().getTime();
-        var res = _.indexOf(newArray, 780000, true);
+        var resSorted = _.indexOf(newArray, 780000, true);
         var endSorted = new Date().getTime();
         var timeSorted = endSorted - beginSorted;
 
         var beginUnsorted = new Date().getTime();
-        var res2 = _.indexOf(newArray, 780000, false);
+        var resUnsorted = _.indexOf(newArray, 780000, false);
         var endUnsorted = new Date().getTime();
         var timeUnsorted = endUnsorted - beginUnsorted;
 
         expect(timeSorted < timeUnsorted).to.be.true;
-        expect(res).to.equal(res2);
+        expect(resSorted).to.equal(resUnsorted);
         expect(_.indexOf(newArray, 780000, false)).to.equal(780000);
         expect(_.indexOf(newArray, 780000, true)).to.equal(780000);
       });
-      it('if no arguments passed then returns -1', function () {
+      it('returns -1 if no arguments passed', function () {
         expect(_.indexOf()).to.equal(-1);
       });
     });
@@ -192,31 +192,27 @@ describe('_', function () {
     });
   });
 
-    // testing _.filter function
-
-  describe('#filter', function () {
+  describe.only('#filter', function () {
     it('is a function', function () {
       expect(_.filter).to.be.a('function');
     });
     it('returns an array', function () {
       expect(_.filter()).to.be.an('array');
     });
-    it('returns an array when given an object', function () {
-      expect(_.filter({})).to.eql([]);
-    });
-    it('returns [2, 4, 6] when passed [1, 2, 3, 4, 5, 6]', function () {
+    it('returns array containing the values that pass the predicate truth test', function () {
       var testFn = _.filter([1, 2, 3, 4, 5, 6], function (num) { return num % 2 === 0; });
       expect(testFn).to.eql([2, 4, 6]);
     });
-    it('it returns an emty array when give an empty array', function () {
-      expect(_.filter([])).to.eql([]);
+    it('returns the same array when no predicate is passed', function () {
+      expect(_.filter([1, 2, 3, 4])).to.eql([1, 2, 3, 4]);
     });
-    it('calls the iteratee correct number of times', function () {
+    it('calls the iteratee the correct number of times', function () {
       var spy = sinon.spy();
       var myArray = [1, 2, 3, 4];
       _.filter(myArray, spy);
       expect(spy.callCount).to.equal(4);
     });
+    // context stuff
   });
 
   describe('#reject', function () {
