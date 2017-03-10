@@ -5,9 +5,8 @@
 // 3. last
 // 4. each
 // 5. indexOf  (can't get binary search to work faster)
-
-
 // 6. filter
+
 // 7. reject
 // 8. uniq
 // 9. map
@@ -107,6 +106,17 @@ _.filter = function (list, predicate) {
 };
 
 _.reject = function (list, predicate) {
+  list = list || [];
+  predicate = predicate || _.identity;
+
+  var filteredArray = [];
+  for (var i = 0; i < list.length; i++) {
+    if (!predicate(list[i])) {
+      filteredArray.push(list[i]);
+    }
+  }
+  return filteredArray;
+/*
   var newArray = [];
   predicate = predicate || _.identity;
   if (list !== undefined) {
@@ -119,6 +129,7 @@ _.reject = function (list, predicate) {
   } else {
     return [];
   }
+  */
 };
 
 _.uniq = function (list) {

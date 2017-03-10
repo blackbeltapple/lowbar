@@ -192,7 +192,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#filter', function () {
+  describe('#filter', function () {
     it('is a function', function () {
       expect(_.filter).to.be.a('function');
     });
@@ -212,27 +212,23 @@ describe('_', function () {
       _.filter(myArray, spy);
       expect(spy.callCount).to.equal(4);
     });
-    // context stuff
   });
 
-  describe('#reject', function () {
+  describe.only('#reject', function () {
     it('is a function', function () {
       expect(_.reject).to.be.a('function');
     });
     it('returns an array', function () {
       expect(_.reject()).to.be.an('array');
     });
-    it('returns an array when given an object', function () {
-      expect(_.reject({})).to.eql([]);
-    });
-    it('returns [1, 3, 5] when passed [1, 2, 3, 4, 5, 6]', function () {
+    it('returns array containing the values that pass the predicate truth test', function () {
       var testFn = _.reject([1, 2, 3, 4, 5, 6], function (num) { return num % 2 === 0; });
       expect(testFn).to.eql([1, 3, 5]);
     });
-    it('it returns an emty array when give an empty array', function () {
-      expect(_.reject([])).to.eql([]);
+    it('returns an empty array when no predicate is passed', function () {
+      expect(_.reject([1, 2, 3, 4])).to.eql([]);
     });
-    it('calls the iteratee correct number of times', function () {
+    it('calls the iteratee the correct number of times', function () {
       var spy = sinon.spy();
       var myArray = [1, 2, 3, 4];
       _.reject(myArray, spy);

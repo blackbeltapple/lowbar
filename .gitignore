@@ -2,5 +2,5 @@
 .idea/*
 node_modules/*
 .DS_Store
-.spec/test.js
+/spec/test.js
 spec/test.js
