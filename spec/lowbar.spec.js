@@ -1,4 +1,4 @@
-/* global describe, it */
+/* global describe, it, xit */
 var path = require('path');
 var expect = require('chai').expect;
 var sinon = require('sinon');
@@ -192,7 +192,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#filter', function () {
+  describe('#filter', function () {
     it('is a function', function () {
       expect(_.filter).to.be.a('function');
     });
@@ -252,18 +252,45 @@ describe('_', function () {
     });
   });
 
-  describe('#uniq', function () {
+  describe.only('#uniq', function () {
     it('is a function', function () {
       expect(_.uniq).to.be.a('function');
     });
     it('returns an array', function () {
       expect(_.uniq()).to.be.an('array');
     });
-    it('returns [1,2,3] when given [1, 2, 3, 1, 2, 1, 1, 2]', function () {
-      expect(_.uniq([1, 2, 3, 1, 2, 1, 1, 2])).to.eql([1, 2, 3]);
+    it('returns unique values only, when isSorted is false', function () {
+      expect(_.uniq([1, 2, 3, 1, 2, 1, 1, 2], false)).to.eql([1, 2, 3]);
+      expect(_.uniq([1, 3, 2, 3, 1, 2, 1, 1, 2], false)).to.eql([1, 3, 2]);
+      expect(_.uniq(['one', 'two', 'two', 'three', 'one', 'two', 'three'], false)).to.eql(['one', 'two', 'three']);
     });
-    it('it returns an emty array when give an empty array', function () {
+    it('returns unique values only, for sorted arrays', function () {
+      expect(_.uniq([1, 1, 2, 2, 2, 3], true)).to.eql([1, 2, 3]);
+    });
+    it('it returns an empty array when passed an empty array', function () {
       expect(_.uniq([])).to.eql([]);
+    });
+    it('completes quicker when isSorted is set to true', function () {
+      // get time for a big unsorted array
+      var bigUnsortedArray = Array(2000000).fill(2);
+      bigUnsortedArray.fill(1, 1000000, 2000000);
+      var unsortedTime1 = new Date().getTime();
+      var unsortedRes = _.uniq(bigUnsortedArray, false);
+      var unsortedTime2 = new Date().getTime();
+      var unsortedTime = unsortedTime2 - unsortedTime1;
+
+      // get time for a big sorted array
+      var bigSortedArray = Array(2000000).fill(1);
+      bigSortedArray.fill(2, 1000000, 2000000);
+      var sortedTime1 = new Date().getTime();
+      var sortedRes = _.uniq(bigSortedArray, true);
+      var sortedTime2 = new Date().getTime();
+      var sortedTime = sortedTime2 - sortedTime1;
+
+      // compare the two times
+      expect(sortedRes).to.eql([1, 2]);
+      expect(unsortedRes).to.eql([2, 1]);
+      expect(sortedTime).to.be.below(unsortedTime);
     });
   });
 

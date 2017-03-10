@@ -118,18 +118,21 @@ _.reject = function (list, predicate, context) {
   return filteredArray;
 };
 
-_.uniq = function (list) {
-  /*
-  var newArray = [];
-  if (list === undefined) return [];
+_.uniq = function (list, isSorted, iteratee) {
+  list = list || [];
+  isSorted = isSorted || false;
+  iteratee = iteratee || _.identity;
+
+  var uniqueArray = [];
   for (var i = 0; i < list.length; i++) {
-    if (newArray.indexOf(list[i]) === -1) {
-      newArray.push(list[i]);
+    if (isSorted && (list[i] === list[i - 1])) {
+      continue; // skip this iteration if this element is same as previous element
+    }
+    if (uniqueArray.indexOf(list[i]) === -1) {
+      uniqueArray.push(list[i]);
     }
   }
-  return newArray;
-  */
-
+  return uniqueArray;
 };
 
 _.map = function (list, iteratee) {
