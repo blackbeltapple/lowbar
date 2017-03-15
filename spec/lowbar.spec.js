@@ -369,7 +369,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#reduce()', function () {
+  describe('#reduce()', function () {
     it('is a function', function () {
       expect(_.reduce).to.be.a('function');
     });
@@ -423,15 +423,12 @@ describe('_', function () {
     });
   });
 
-  describe('#contains()', function () {
+  describe.only('#contains()', function () {
     it('is a function', function () {
       expect(_.contains).to.be.a('function');
     });
-    it('returns a boolean', function () {
-      expect(_.contains()).to.be.a('boolean');
-    });
-    it('takes two or three parameters', function () {
-      expect(_.contains.length).to.within(2, 3);
+    it('takes three parameters', function () {
+      expect(_.contains.length).to.equal(3);
     });
     it('returns true for ([1, 2, 3],3)', function () {
       expect(_.contains([1, 2, 3], 3)).to.be.true;
@@ -444,6 +441,12 @@ describe('_', function () {
     });
     it('returns false for ([1, 2, pear], apple)', function () {
       expect(_.contains([1, 2, 'pear'], 'apple')).to.be.false;
+    });
+    it('functions correctly when given a fromIndex', function () {
+      expect(_.contains([1, 2, 3], 1, 0)).to.be.true;
+      expect(_.contains([1, 2, 3], 1, 1)).to.be.false;
+      expect(_.contains([1, 2, 3, 4, 5, 6], 3, 2)).to.be.true;
+      expect(_.contains([1, 2, 3, 4, 5, 6], 3, 3)).to.be.false;
     });
   });
 

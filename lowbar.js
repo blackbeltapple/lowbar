@@ -13,6 +13,7 @@
 // 11. reduce
 
 // 12. contains
+
 // 13. every
 // 14. some
 // TO DO -----------------
@@ -188,9 +189,10 @@ _.where = function (list, properties) {
   return newArray;
 };
 
-_.contains = function (list, value) {
+_.contains = function (list, value, fromIndex) {
   list = list || [];
-  if (list.indexOf(value) === -1) return false;
+  fromIndex = fromIndex || 0;
+  if (list.indexOf(value, fromIndex) === -1) return false;
   return true;
 };
 
