@@ -9,10 +9,9 @@
 // 7. reject
 // 8. uniq
 // 9. map
-
 // 10. pluck
-
 // 11. reduce
+
 // 12. contains
 // 13. every
 // 14. some
@@ -162,13 +161,13 @@ _.pluck = function (list, propertyName) {
 _.reduce = function (list, iteratee, memo, context) {
   var copyList = list;
 
-  if (!memo) {
+  if (memo === undefined) {
     // make a copy of the list which we can modify
     copyList = list.slice();
     memo = copyList.shift();
   }
   for (var i = 0; i < copyList.length; i++) {
-    memo = iteratee(memo, copyList[i], i, copyList);
+    memo = iteratee.call(context, memo, copyList[i], i, copyList);
   }
   return memo;
 };

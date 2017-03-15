@@ -22,5 +22,11 @@ describe('xxxxxx', function () {
   it('reduces correcly when not passed a memo and asked to total the squares of values', function () {
     expect(_.reduce([2, 3, 4], function (memo, num) { return memo + (num * num); })).to.eql(27);
   });
+  it('uses the context correctly if passed one', function () {
+    var contextObj = {size: 5};
+    var myArray = [1, 2, 3, 4];
+    var myFunc = function (memo, num) { return memo + num + this.size; };
+    expect(_.reduce(myArray, myFunc, 0, contextObj)).to.eql(30);
+  });
 
 })
