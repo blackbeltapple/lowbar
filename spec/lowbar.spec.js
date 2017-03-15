@@ -450,7 +450,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#every()', function () {
+  describe('#every()', function () {
     it('is a function', function () {
       expect(_.every).to.be.a('function');
     });
@@ -509,18 +509,43 @@ describe('_', function () {
     });
   });
 
-  describe ('#some()', function () {
+  describe.only('#some()', function () {
     it('is a function', function () {
       expect(_.some).to.be.a('function');
     });
-    it('returns a boolean', function () {
-      expect(_.some()).to.be.a('boolean');
+    it('expects three parameters', function () {
+      expect(_.some.length).to.equal(3);
     });
-    it('expects two parameters', function () {
-      expect(_.some.length).to.equal(2);
+    it('returns true when the list contains at least one element that passes the predicate test', function () {
+      var myFunc = function (element) { return element === 2; };
+      expect(_.some([1, 2, 3], myFunc)).to.be.true;
+    });
+    it('returns false when the list contains no elements that pass the predicate test', function () {
+      var myFunc = function (element) { return element === 2; };
+      expect(_.some([1, 3, 4], myFunc)).to.be.false;
+    });
+    it('calls the predicate the minimum number of times', function () {
+      var spy = sinon.spy();
+      var myFunc = function (element) {
+        spy();
+        return element === 2;
+      };
+      _.some([2, 1, 3], myFunc);
+      expect(spy.callCount).to.equal(1);
+    });
+    it('uses the context correctly when one is passed', function () {
+      var contextObj = {size: 10};
+      var myFunc = function (element) { return element === this.size; };
+      expect(_.some([10, 20, 30, 40], myFunc, contextObj)).to.be.true;
+      expect(_.some([20, 30, 40], myFunc, contextObj)).to.be.false;
+    });
+    it('returns true if passed no predicate', function () {
+      expect(_.some([1, 2, 3])).to.be.true;
+    });
+    it('returns false if passed no list', function () {
+      expect(_.some()).to.be.false;
     });
   });
-
 });
 
 describe('#where()', function () {

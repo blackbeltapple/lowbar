@@ -11,11 +11,10 @@
 // 9. map
 // 10. pluck
 // 11. reduce
-
 // 12. contains
-
 // 13. every
 // 14. some
+
 // TO DO -----------------
 // 15. extends
 // 16. defaults
@@ -196,21 +195,20 @@ _.contains = function (list, value, fromIndex) {
 
 _.every = function (list, predicate, context) {
   list = list || [];
-  predicate = predicate || function () { return true; };
+  predicate = predicate || _.identity;
   for (var i = 0; i < list.length; i++) {
     if (!predicate.call(context, list[i])) return false;
   }
   return true;
 };
 
-_.some = function (list, predicate) {
+_.some = function (list, predicate, context) {
   list = list || [];
-  predicate = predicate || function (val) {};
-  var flag = false;
+  predicate = predicate || _.identity;
   for (var i = 0; i < list.length; i++) {
-    if (predicate(list[i])) flag = true;
+    if (predicate.call(context, list[i])) return true;
   }
-  return flag;
+  return false;
 };
 
 if (typeof module !== 'undefined') {
