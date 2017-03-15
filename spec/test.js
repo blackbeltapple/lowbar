@@ -4,29 +4,35 @@ var expect = require('chai').expect;//
 var stooges2 = [{name: 'moe', age: 40}, {age: 50}, {name: 'curly', age: 60}];
 describe('xxxxxx', function () {
 
-  it('returns element of undefined if input array contains an object without the propertyName', function () {
-    expect(_.pluck(stooges2, 'name')).to.eql(['moe', undefined, 'curly']);
+  it('is a function', function () {
+    expect(_.every).to.be.a('function');
   });
-  it('reduces correcly when not passed a memo and asked to total the squares of values', function () {
-    expect(_.reduce([1, 2, 3], function (memo, num) { return memo + (num * num); })).to.eql(14);
+  it('expects three parameters', function () {
+    expect(_.every.length).to.equal(3);
   });
-  it('reduces correctly when passed a memo, and asked to perform a sum ', function () {
-    expect(_.reduce([2, 3, 4], function (memo, num) { return memo + num; }, 0)).to.eql(9);
+  it('returns true if every single element passes the truth test', function () {
+    var result = _.every([2, 4, 6, 8, 10, 12], function (element) {
+      return element % 2 === 0;
+    });
+    expect(result).to.equal(true);
   });
-  it('reduces correctly when not passed a memo', function () {
-    expect(_.reduce([2, 3, 4], function (memo, num) { return memo + num; })).to.eql(9);
+  it('returns false if a single element fails the truth test', function () {
+    var result = _.every([2, 4, 6, 8, 10, 11], function (element) {
+      return element % 2 === 0;
+    });
+    expect(result).to.equal(false);
   });
-  it('reduces correctly when asked to total the squares of values', function () {
-    expect(_.reduce([2, 3, 4], function (memo, num) { return memo + (num * num); }, 2)).to.eql(31);
+  it('returns false if all elements fail the truth test', function () {
+    var result = _.every([1, 3, 5, 7, 9], function (element) {
+      return element % 2 === 0;
+    });
+    expect(result).to.equal(false);
   });
-  it('reduces correcly when not passed a memo and asked to total the squares of values', function () {
-    expect(_.reduce([2, 3, 4], function (memo, num) { return memo + (num * num); })).to.eql(27);
+  it('returns true if passed no predicate', function () {
+    expect(_.every([1, 2, 3])).to.equal(true);
   });
-  it('uses the context correctly if passed one', function () {
-    var contextObj = {size: 5};
-    var myArray = [1, 2, 3, 4];
-    var myFunc = function (memo, num) { return memo + num + this.size; };
-    expect(_.reduce(myArray, myFunc, 0, contextObj)).to.eql(30);
+  it('returns true if passed no list', function () {
+    expect(_.every()).to.equal(true);
   });
 
 })

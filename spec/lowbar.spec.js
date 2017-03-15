@@ -423,7 +423,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#contains()', function () {
+  describe('#contains()', function () {
     it('is a function', function () {
       expect(_.contains).to.be.a('function');
     });
@@ -450,28 +450,18 @@ describe('_', function () {
     });
   });
 
-  describe ('#every()', function () {
+  describe.only('#every()', function () {
     it('is a function', function () {
       expect(_.every).to.be.a('function');
     });
-    it('returns a boolean', function () {
-      expect(_.every()).to.be.a('boolean');
+    it('expects three parameters', function () {
+      expect(_.every.length).to.equal(3);
     });
-    it('expects two parameters', function () {
-      expect(_.every.length).to.equal(2);
-    });
-
-    it('returns true if every element is true', function () {
-      var result = _.every([true, true, true], function (element) {
-        return !!element;
+    it('returns true if every single element passes the truth test', function () {
+      var result = _.every([2, 4, 6, 8, 10, 12], function (element) {
+        return element % 2 === 0;
       });
       expect(result).to.equal(true);
-    });
-    it('returns false if every element is false', function () {
-      var result = _.every([false, false, false], function (element) {
-        return !!element;
-      });
-      expect(result).to.equal(false);
     });
     it('returns false if a single element fails the truth test', function () {
       var result = _.every([2, 4, 6, 8, 10, 11], function (element) {
@@ -485,8 +475,30 @@ describe('_', function () {
       });
       expect(result).to.equal(false);
     });
-
-
+    it('returns true if passed no predicate', function () {
+      expect(_.every([1, 2, 3])).to.equal(true);
+    });
+    it('returns true if passed no list', function () {
+      expect(_.every()).to.equal(true);
+    });
+    it('executes the predicate function the correct number of times', function () {
+      var spy = sinon.spy();
+      var predicate = function (element) {
+        spy();
+        return element % 2 === 0;
+      };
+      _.every([2, 4, 6, 8, 10, 12], predicate);
+      expect(spy.callCount).to.equal(6);
+    });
+    it('executes the predicate function the minimum number of times (until it finds a false)', function () {
+      var spy = sinon.spy();
+      var predicate = function (element) {
+        spy();
+        return element % 2 === 0;
+      };
+      _.every([2, 4, 6, 8, 11, 12], predicate);
+      expect(spy.callCount).to.equal(5);
+    });
   });
 
   describe ('#some()', function () {
