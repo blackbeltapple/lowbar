@@ -190,10 +190,8 @@ _.where = function (list, properties) {
 };
 
 _.contains = function (list, value, fromIndex) {
-  list = list || [];
   fromIndex = fromIndex || 0;
-  if (_.indexOf(list.slice(fromIndex), value) === -1) return false;
-  return true;
+  return _.indexOf(list.slice(fromIndex), value) !== -1;
 };
 
 _.every = function (list, predicate) {
