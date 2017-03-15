@@ -135,21 +135,20 @@ _.uniq = function (list, isSorted, iteratee) {
   return uniqueArray;
 };
 
-_.map = function (list, iteratee) {
-
+_.map = function (list, iteratee, context) {
+  list = list || [];
   iteratee = iteratee || _.identity;
-  if (list === undefined) return [];
-  var newArray = [];
+  var result = [];
   if (Array.isArray(list)) {
     for (var i = 0; i < list.length; i++) {
-      newArray.push(iteratee(list[i], i, list));
+      result.push(iteratee(list[i], i, list));
     }
-  } else { // if object
+  } else if (typeof (list) === 'object') {
     for (var key in list) {
-      newArray.push(iteratee(list[key], key, list));
+      result.push(iteratee(list[key], key, list));
     }
   }
-  return newArray;
+  return result;
 };
 
 _.pluck = function (list, propertyName) {

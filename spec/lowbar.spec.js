@@ -298,17 +298,14 @@ describe('_', function () {
     it('is a function', function () {
       expect(_.map).to.be.a('function');
     });
-    it('returns an array', function () {
-      expect(_.map([1, 2, 3], function (num) { return num * 3; })).to.be.an('array');
-    });
-    it('takes two parameters', function () {
+    it('takes two or three parameters', function () {
       expect(_.map.length).to.be.within(2, 3);
     });
-    it('returns correct values when passed an array', function () {
+    it('returns array containing correct values when passed an array', function () {
       expect(_.map([1, 2, 3], function (num) { return num * 3; })).to.eql([3, 6, 9]);
       expect(_.map(['one', 'two', 'three'], function (val) { return val + '!'; })).to.eql(['one!', 'two!', 'three!']);
     });
-    it('returns correct values when passed an object', function () {
+    it('returns array containing correct values when passed an object', function () {
       var output1 = _.map({one: 1, two: 2, three: 3}, function (num, key) { return num * 3; });
       expect(output1).to.eql([3, 6, 9]);
     });
@@ -316,6 +313,7 @@ describe('_', function () {
       var input = [1, 2, 3];
       var output = _.map(input, function (num) { return num; });
       expect(input).to.not.equal(output);
+      expect(input).to.eql(output);
     });
     it('calls the iteratee the correct number of times', function () {
       var spy = sinon.spy();
@@ -323,20 +321,21 @@ describe('_', function () {
       _.map(myArray, spy);
       expect(spy.callCount).to.equal(4);
     });
-    // var args = barSpy.getCalls()[0].args
     it('passes the correct three args to the iteratee', function () {
       var spy = sinon.spy();
       var myArray = [1, 2, 3, 4];
       _.map(myArray, spy);
       var args = spy.getCalls()[0].args;
       expect(args).to.eql([1, 0, [1, 2, 3, 4]]);
+      args = spy.getCalls()[1].args;
+      expect(args).to.eql([2, 1, [1, 2, 3, 4]]);
     });
-    it('passes three args to the iteratee each time', function () {
-      var output = _.map({one: 1, two: 2, three: 3}, function (num, key, list) { return key; });
-      expect(output).to.eql(['one', 'two', 'three']);
-      var output2 = _.map([1, 2, 3], function (val, index, list) { return _.last(list); });
-      expect(output2).to.eql([3, 3, 3]);
+    it('returns an identical array when passed no iteratee', function () {
+      var myArray = [1, 2, 3, 4];
+      var output = _.map(myArray);
+      expect(output).to.eql([1, 2, 3, 4]);
     });
+    // context tests here 
   });
 
   describe('#pluck()', function () {
