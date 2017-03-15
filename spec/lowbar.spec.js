@@ -294,7 +294,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#map()', function () {
+  describe('#map()', function () {
     it('is a function', function () {
       expect(_.map).to.be.a('function');
     });
@@ -347,9 +347,6 @@ describe('_', function () {
   describe('#pluck()', function () {
     it('is a function', function () {
       expect(_.pluck).to.be.a('function');
-    });
-    it('returns an array', function () {
-      expect(_.pluck([1, 2, 3], 'name')).to.be.an('array');
     });
     it('takes two parameters', function () {
       expect(_.pluck.length).to.equal(2);

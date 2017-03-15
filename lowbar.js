@@ -8,9 +8,10 @@
 // 6. filter
 // 7. reject
 // 8. uniq
-
 // 9. map
+
 // 10. pluck
+
 // 11. reduce
 // 12. contains
 // 13. every
@@ -153,10 +154,9 @@ _.map = function (list, iteratee, context) {
 };
 
 _.pluck = function (list, propertyName) {
-  var propArray = _.map(list, function (item) {
-    return item[propertyName];
+  return _.map(list, function (obj) {
+    return obj[propertyName];
   });
-  return propArray;
 };
 
 _.reduce = function (list, iteratee, memo) {
