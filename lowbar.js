@@ -50,7 +50,6 @@ _.last = function (arr, num) {
 
 _.each = function (list, iteratee, context) {
   iteratee = iteratee || _.identity;
-  // if no context passed, default to this
   context = context || this;
   // handle arrays
   if (Array.isArray(list)) {
@@ -138,14 +137,16 @@ _.uniq = function (list, isSorted, iteratee) {
 _.map = function (list, iteratee, context) {
   list = list || [];
   iteratee = iteratee || _.identity;
+  context = context || this;
+
   var result = [];
   if (Array.isArray(list)) {
     for (var i = 0; i < list.length; i++) {
-      result.push(iteratee(list[i], i, list));
+      result.push(iteratee.call(context, list[i], i, list));
     }
   } else if (typeof (list) === 'object') {
     for (var key in list) {
-      result.push(iteratee(list[key], key, list));
+      result.push(iteratee.call(context, list[key], key, list));
     }
   }
   return result;

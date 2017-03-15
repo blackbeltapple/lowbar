@@ -335,7 +335,13 @@ describe('_', function () {
       var output = _.map(myArray);
       expect(output).to.eql([1, 2, 3, 4]);
     });
-    // context tests here 
+    it('uses the correct context when one is passed', function () {
+      var contextObject = {age: 21};
+      var myArray = [1, 2, 3, 4];
+      function addAge (element) { return element + this.age; }
+      var output = _.map(myArray, addAge, contextObject);
+      expect(output).to.eql([22, 23, 24, 25]);
+    });
   });
 
   describe('#pluck()', function () {
