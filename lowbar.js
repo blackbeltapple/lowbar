@@ -159,16 +159,17 @@ _.pluck = function (list, propertyName) {
   });
 };
 
-_.reduce = function (list, iteratee, memo) {
-  var newList = list.slice();
-  iteratee = iteratee || _.identity;
-  if (memo === undefined) {
-    newList = list.slice(1);
-    memo = list[0];
+_.reduce = function (list, iteratee, memo, context) {
+  var copyList = list;
+
+  if (!memo) {
+    // make a copy of the list which we can modify
+    copyList = list.slice();
+    memo = copyList.shift();
   }
-  _.each(newList, function (elem, ind, list) {
-    memo = iteratee(memo, elem, ind, list);
-  });
+  for (var i = 0; i < copyList.length; i++) {
+    memo = iteratee(memo, copyList[i], i, copyList);
+  }
   return memo;
 };
 

@@ -294,7 +294,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#map()', function () {
+  describe('#map()', function () {
     it('is a function', function () {
       expect(_.map).to.be.a('function');
     });
@@ -369,38 +369,52 @@ describe('_', function () {
     });
   });
 
-  describe('#reduce()', function () {
+  describe.only('#reduce()', function () {
     it('is a function', function () {
       expect(_.reduce).to.be.a('function');
     });
-    it('takes two to four parameters', function () {
-      expect(_.reduce.length).to.equal(3);
+    it('takes four parameters', function () {
+      expect(_.reduce.length).to.equal(4);
     });
-    it('returns correct value when passed memo ', function () {
-      expect(_.reduce([1, 2, 3], function(memo, num){ return memo + num; }, 0)).to.eql(6);
+    it('reduces correctly when passed a memo, and asked to perform a sum ', function () {
+      expect(_.reduce([2, 3, 4], function (memo, num) { return memo + num; }, 10)).to.eql(19);
     });
-    it('returns correct value when not passed a memo', function () {
-      expect(_.reduce([1, 2, 3], function(memo, num){ return memo + num; })).to.eql(6);
+    it('reduces correctly when not passed a memo, uses first element as memo', function () {
+      expect(_.reduce([2, 3, 4], function (memo, num) { return memo + num; })).to.eql(9);
     });
-    it('returns correct value when passed a memo and asked to total squares of vals', function () {
-      expect(_.reduce([1, 2, 3], function(memo, num){ return memo + (num * num); }, 2)).to.eql(16);
+    it('reduces correctly when asked to total the squares of values', function () {
+      expect(_.reduce([2, 3, 4], function (memo, num) { return memo + (num * num); }, 2)).to.eql(31);
     });
-    it('returns correct value when not passed a memo and asked to total squares of vals', function () {
-      expect(_.reduce([1, 2, 3], function(memo, num){ return memo + (num * num); })).to.eql(14);
+    it('reduces correctly when not passed a memo and asked to total the squares of values', function () {
+      expect(_.reduce([2, 3, 4], function (memo, num) { return memo + (num * num); })).to.eql(27);
+    });
+    it('returns undefined if an empty array is passed', function () {
+      expect(_.reduce([], function (memo, num) { return memo + (num * num); })).to.eql(undefined);
+    });
+    it('does not modify the original list', function () {
+      var myArray = [2, 3, 4];
+      _.reduce(myArray, function (memo, num) { return memo + (num * num); });
+      expect(myArray).to.eql([2, 3, 4]);
     });
     it('calls the iteratee the correct number of times, when context passed', function () {
-      var doubleSpy = sinon.spy();
+      var spy = sinon.spy();
       var myArray = [1, 2, 3, 4];
-      _.reduce(myArray, doubleSpy, 0);
-      expect(doubleSpy.callCount).to.equal(4);
+      _.reduce(myArray, spy, 10);
+      expect(spy.callCount).to.equal(4);
     });
-    it('calls the iteratee one less time if no context passed', function () {
-      var doubleSpy = sinon.spy();
+    it('calls the iteratee one less time if no memo passed', function () {
+      var spy = sinon.spy();
       var myArray = [1, 2, 3, 4];
-      _.reduce(myArray, doubleSpy);
-      expect(doubleSpy.callCount).to.equal(3);
+      _.reduce(myArray, spy);
+      expect(spy.callCount).to.equal(3);
     });
-
+    it('passes the correct arguments to the first call to the iteratee', function () {
+      var spy = sinon.spy();
+      var myArray = [1, 2, 3, 4];
+      _.reduce(myArray, spy, 10);
+      var args = spy.getCalls()[0].args;
+      expect(args).to.eql([10, 1, 0, [1, 2, 3, 4]]);
+    });
   });
 
   describe('#where()', function () {
