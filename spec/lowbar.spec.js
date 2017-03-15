@@ -294,7 +294,7 @@ describe('_', function () {
     });
   });
 
-  describe('#map()', function () {
+  describe.only('#map()', function () {
     it('is a function', function () {
       expect(_.map).to.be.a('function');
     });
@@ -341,6 +341,11 @@ describe('_', function () {
       function addAge (element) { return element + this.age; }
       var output = _.map(myArray, addAge, contextObject);
       expect(output).to.eql([22, 23, 24, 25]);
+    });
+    it('does not modify the original list', function () {
+      var myArray = [1, 2, 3, 4];
+      _.map(myArray, function (num) { return num * 2; });
+      expect(myArray).to.eql([1, 2, 3, 4]);
     });
   });
 
