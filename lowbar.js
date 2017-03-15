@@ -192,7 +192,7 @@ _.where = function (list, properties) {
 _.contains = function (list, value, fromIndex) {
   list = list || [];
   fromIndex = fromIndex || 0;
-  if (list.indexOf(value, fromIndex) === -1) return false;
+  if (_.indexOf(list.slice(fromIndex), value) === -1) return false;
   return true;
 };
 
