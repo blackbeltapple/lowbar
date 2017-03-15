@@ -153,42 +153,38 @@ describe('_', function () {
     it('returns -1 if passed an array but no search value', function () {
       expect(_.indexOf([1, 2, 3, 3, 3])).to.equal(-1);
     });
-    describe('when a boolean is passed as optional third param', function () {
-      it('always returns same value regardless of whether 3rd param is true/false/undefined', function () {
-        expect(_.indexOf([1, 2, 3, 4, 5], 3)).to.equal(2);
-        expect(_.indexOf([1, 2, 3, 4, 5], 3, false)).to.equal(2);
-        expect(_.indexOf([1, 2, 3, 4, 5], 3, true)).to.equal(2);
-      });
-      xit('should run quicker if using binary search for sorted array', function () {
-        var newArray = [];
-        for (var i = 0; i < 1000000; i++) {
-          newArray.push(i);
-        }
-        var beginSorted = new Date().getTime();
-        var resSorted = _.indexOf(newArray, 780000, true);
-        var endSorted = new Date().getTime();
-        var timeSorted = endSorted - beginSorted;
-
-        var beginUnsorted = new Date().getTime();
-        var resUnsorted = _.indexOf(newArray, 780000, false);
-        var endUnsorted = new Date().getTime();
-        var timeUnsorted = endUnsorted - beginUnsorted;
-
-        expect(timeSorted < timeUnsorted).to.be.true;
-        expect(resSorted).to.equal(resUnsorted);
-        expect(_.indexOf(newArray, 780000, false)).to.equal(780000);
-        expect(_.indexOf(newArray, 780000, true)).to.equal(780000);
-      });
-      it('returns -1 if no arguments passed', function () {
-        expect(_.indexOf()).to.equal(-1);
-      });
+    it('always returns same value regardless of whether 3rd param is true/false/undefined', function () {
+      expect(_.indexOf([1, 2, 3, 4, 5], 3)).to.equal(2);
+      expect(_.indexOf([1, 2, 3, 4, 5], 3, false)).to.equal(2);
+      expect(_.indexOf([1, 2, 3, 4, 5], 3, true)).to.equal(2);
     });
-    describe('when pass a starting index as optional third param', function () {
-      it('will return correct index for found values', function () {
-        expect(_.indexOf([1, 2, 3, 4, 3], 3, 2)).to.equal(1);
-        expect(_.indexOf([1, 2, 3, 4, 3], 3, 3)).to.equal(0);
-        expect(_.indexOf([1, 2, 3, 4, 5], 3, 2)).to.equal(-1);
-      });
+    xit('should run quicker if using binary search for sorted array', function () {
+      var newArray = [];
+      for (var i = 0; i < 1000000; i++) {
+        newArray.push(i);
+      }
+      var beginSorted = new Date().getTime();
+      var resSorted = _.indexOf(newArray, 780000, true);
+      var endSorted = new Date().getTime();
+      var timeSorted = endSorted - beginSorted;
+
+      var beginUnsorted = new Date().getTime();
+      var resUnsorted = _.indexOf(newArray, 780000, false);
+      var endUnsorted = new Date().getTime();
+      var timeUnsorted = endUnsorted - beginUnsorted;
+
+      expect(timeSorted < timeUnsorted).to.be.true;
+      expect(resSorted).to.equal(resUnsorted);
+      expect(_.indexOf(newArray, 780000, false)).to.equal(780000);
+      expect(_.indexOf(newArray, 780000, true)).to.equal(780000);
+    });
+    it('returns -1 if no arguments passed', function () {
+      expect(_.indexOf()).to.equal(-1);
+    });
+    it('will return correct index for found values', function () {
+      expect(_.indexOf([1, 2, 3, 4, 3], 3, 2)).to.equal(1);
+      expect(_.indexOf([1, 2, 3, 4, 3], 3, 3)).to.equal(0);
+      expect(_.indexOf([1, 2, 3, 4, 5], 3, 2)).to.equal(-1);
     });
   });
 
@@ -509,7 +505,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#some()', function () {
+  describe('#some()', function () {
     it('is a function', function () {
       expect(_.some).to.be.a('function');
     });
@@ -546,31 +542,33 @@ describe('_', function () {
       expect(_.some()).to.be.false;
     });
   });
-});
+  describe('#where()', function () {
+    var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 50}];
+    var testArray = [{a: 1, b: 2, c: 3}, {a: 1, c: 3}, {a: 1, b: 7}, {a: 9, f: 11, j: 99}];
 
-describe('#where()', function () {
-  var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 50}];
-  var testArray1 = [{a: 1, b: 2, c: 3}, {a: 1, c: 3}, {a: 1, b: 7}, {a: 9, f: 11, j: 99}];
-
-  it('is a function', function () {
-    expect(_.where).to.be.a('function');
-  });
-  it('returns an array', function () {
-    expect(_.where([1, 2, 3], {})).to.be.an('array');
-  });
-  it('takes two parameters', function () {
-    expect(_.where.length).to.equal(2);
-  });
-  it('returns 3 objects when passed testArray', function () {
-    expect(_.where(testArray1, {a: 1})).to.eql([{a: 1, b: 2, c: 3}, {a: 1, c: 3}, {a: 1, b: 7}]);
-  });
-  it('returns array of 2 objects when passed testArray', function () {
-    expect(_.where(testArray1, {a: 1, c: 3})).to.eql([{a: 1, b: 2, c: 3}, {a: 1, c: 3}]);
-  });
-  it('returns empty array when no matches found', function () {
-    expect(_.where(testArray1, {a: 4, c: 4})).to.eql([]);
-  });
-  it('returns larry and curly objects when passed stooges array', function () {
-    expect(_.where(stooges, {age: 50})).to.eql([{name: 'larry', age: 50}, {name: 'curly', age: 50}]);
+    it('is a function', function () {
+      expect(_.where).to.be.a('function');
+    });
+    it('takes two parameters', function () {
+      expect(_.where.length).to.equal(2);
+    });
+    it('returns array of correct objects when passed testArray and properties {a: 1}', function () {
+      expect(_.where(testArray, {a: 1})).to.eql([{a: 1, b: 2, c: 3}, {a: 1, c: 3}, {a: 1, b: 7}]);
+    });
+    it('returns array of correct objects when passed testArray and properties {a: 1, c: 3}', function () {
+      expect(_.where(testArray, {a: 1, c: 3})).to.eql([{a: 1, b: 2, c: 3}, {a: 1, c: 3}]);
+    });
+    it('returns empty array when no matches found', function () {
+      expect(_.where(testArray, {a: 4, c: 4})).to.eql([]);
+    });
+    it('returns larry and curly objects when passed stooges array, where age is 50', function () {
+      expect(_.where(stooges, {age: 50})).to.eql([{name: 'larry', age: 50}, {name: 'curly', age: 50}]);
+    });
+    it('returns an empty array when no list or properties passed', function () {
+      expect(_.where()).to.eql([]);
+    });
+    it('returns original array when no properties are passed', function () {
+      expect(_.where(stooges)).to.eql(stooges);
+    });
   });
 });

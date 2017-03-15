@@ -4,10 +4,13 @@ var expect = require('chai').expect;//
 var stooges2 = [{name: 'moe', age: 40}, {age: 50}, {name: 'curly', age: 60}];
 describe('xxxxxx', function () {
 
-  it('returns true if passed no predicate', function () {
-    expect(_.some([1, 2, 3])).to.be.true;
+  it('returns an empty array when no list or properties passed', function () {
+    expect(_.where()).to.eql([]);
   });
-  it('returns false if passed no list', function () {
-    expect(_.some()).to.be.false;
+  it('returns original array when no properties are passed', function () {
+    var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 50}];
+
+    expect(_.where(stooges)).to.eql(stooges);
   });
+
 })

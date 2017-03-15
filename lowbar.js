@@ -1,34 +1,37 @@
 /*
-// DONE --------------------
-// 1. identity
-// 2. first
-// 3. last
-// 4. each
-// 5. indexOf  (can't get binary search to work faster)
-// 6. filter
-// 7. reject
-// 8. uniq
-// 9. map
-// 10. pluck
-// 11. reduce
-// 12. contains
-// 13. every
-// 14. some
 
-// TO DO -----------------
-// 15. extends
-// 16. defaults
-// 17. once
-// 18. memoize
-// 19. delay
-// 20. shuffle
-// 21. invoke
-// 22. sortBy
-// 23. zip
-// 24. flatten
-// 25. intersection
-// 26. difference
-// 27. throttle
+DONE --------------------
+1. identity
+2. first
+3. last
+4. each
+5. indexOf  (can't get binary search to work faster)
+6. filter
+7. reject
+8. uniq
+9. map
+10. pluck
+11. reduce
+12. contains
+13. every
+14. some
+Additional: where
+
+TO DO -----------------
+15. extends
+16. defaults
+17. once
+18. memoize
+19. delay
+20. shuffle
+21. invoke
+22. sortBy
+23. zip
+24. flatten
+25. intersection
+26. difference
+27. throttle
+
 */
 
 var _ = {};
@@ -172,22 +175,6 @@ _.reduce = function (list, iteratee, memo, context) {
   return memo;
 };
 
-_.where = function (list, properties) {
-  var newArray = [];
-  // iterate over every item in the array and push it to the new array if
-  // every key/value pair in that properties match
-  _.each(list, function (obj, ind) {
-    var match = true;
-    for (var key in properties) {
-      if (obj[key] !== properties[key]) {
-        match = false;
-      }
-    }   // end for key in ...
-    if (match) newArray.push(obj);
-  });
-  return newArray;
-};
-
 _.contains = function (list, value, fromIndex) {
   fromIndex = fromIndex || 0;
   return _.indexOf(list.slice(fromIndex), value) !== -1;
@@ -209,6 +196,22 @@ _.some = function (list, predicate, context) {
     if (predicate.call(context, list[i])) return true;
   }
   return false;
+};
+
+_.where = function (list, properties) {
+  properties = properties || {};
+  var result = [];
+  _.each(list, function (obj) {
+    var match = true;
+    for (var key in properties) {
+      if (properties[key] !== obj[key]) {
+        match = false;
+        break;
+      }
+    }
+    if (match) result.push(obj);
+  });
+  return result;
 };
 
 if (typeof module !== 'undefined') {
