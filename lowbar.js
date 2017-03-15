@@ -196,23 +196,11 @@ _.contains = function (list, value, fromIndex) {
 
 _.every = function (list, predicate, context) {
   list = list || [];
-  predicate = predicate || function () {return true};
-  var result = true;
+  predicate = predicate || function () { return true; };
   for (var i = 0; i < list.length; i++) {
-    if (!predicate(list[i])) {
-      result = false;
-      break;
-    }
-  }
-  return result;
-  /*
-  list = list || [];
-  predicate = predicate || function (val) {};
-  for (var i = 0; i < list.length; i++) {
-    if (!predicate(list[i])) return false;
+    if (!predicate.call(context, list[i])) return false;
   }
   return true;
-  */
 };
 
 _.some = function (list, predicate) {

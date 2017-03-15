@@ -499,6 +499,14 @@ describe('_', function () {
       _.every([2, 4, 6, 8, 11, 12], predicate);
       expect(spy.callCount).to.equal(5);
     });
+    it('uses the context correctly when given one', function () {
+      var contextObj = {size: 5};
+      var lessThan10 = function (element) {
+        return element + this.size < 10;
+      };
+      expect(_.every([1, 2, 3, 4], lessThan10, contextObj)).to.be.true;
+      expect(_.every([1, 2, 3, 4, 5], lessThan10, contextObj)).to.be.false;
+    });
   });
 
   describe ('#some()', function () {
