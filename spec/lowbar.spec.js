@@ -681,7 +681,7 @@ describe('_', function () {
     it('returns a function that does the same thing as the input function', function () {
       var square = function (num) { return num * num; };
       var newSquare = _.memoize(square);
-      expect(newSquare(3, 6, 7, 0, 'kiv')).to.equal(square(3));
+      expect(newSquare(3)).to.equal(square(3));
     });
     it('runs faster when called for second time with identical args', function () {
       function fibonacci (number) {

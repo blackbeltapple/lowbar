@@ -247,6 +247,9 @@ _.once = function (myFunction) {
 _.memoize = function (myFunction) {
   var cache = {};
   var result;
+  // Still to do the hasfunction
+  // and still to do additional tests for this function
+
   return function () {
     var stringyArgs = JSON.stringify(arguments);
     if (cache.hasOwnProperty(stringyArgs)) {
