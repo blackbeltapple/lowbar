@@ -17,11 +17,10 @@ DONE --------------------
 14. some
 Additional: where
 15. extend
-
 16. defaults
+17. once
 
 TO DO -----------------
-17. once
 18. memoize
 19. delay
 20. shuffle
@@ -231,6 +230,18 @@ _.defaults = function (object, ...defaults) {
     });
   });
   return object;
+};
+
+_.once = function (myFunction) {
+  var executed = false;
+  var result;
+  return function () {
+    if (!executed) {
+      executed = true;
+      result = myFunction.apply(null, arguments);
+    }
+    return result;
+  };
 };
 
 if (typeof module !== 'undefined') {

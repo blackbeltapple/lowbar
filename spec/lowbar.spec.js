@@ -290,7 +290,7 @@ describe('_', function () {
     });
   });
 
-  describe('#map()', function () {
+  describe('#map', function () {
     it('is a function', function () {
       expect(_.map).to.be.a('function');
     });
@@ -345,7 +345,7 @@ describe('_', function () {
     });
   });
 
-  describe('#pluck()', function () {
+  describe('#pluck', function () {
     it('is a function', function () {
       expect(_.pluck).to.be.a('function');
     });
@@ -365,7 +365,7 @@ describe('_', function () {
     });
   });
 
-  describe('#reduce()', function () {
+  describe('#reduce', function () {
     it('is a function', function () {
       expect(_.reduce).to.be.a('function');
     });
@@ -419,7 +419,7 @@ describe('_', function () {
     });
   });
 
-  describe('#contains()', function () {
+  describe('#contains', function () {
     it('is a function', function () {
       expect(_.contains).to.be.a('function');
     });
@@ -446,7 +446,7 @@ describe('_', function () {
     });
   });
 
-  describe('#every()', function () {
+  describe('#every', function () {
     it('is a function', function () {
       expect(_.every).to.be.a('function');
     });
@@ -505,7 +505,7 @@ describe('_', function () {
     });
   });
 
-  describe('#some()', function () {
+  describe('#some', function () {
     it('is a function', function () {
       expect(_.some).to.be.a('function');
     });
@@ -542,7 +542,7 @@ describe('_', function () {
       expect(_.some()).to.be.false;
     });
   });
-  describe('#where()', function () {
+  describe('#where', function () {
     var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 50}];
     var testArray = [{a: 1, b: 2, c: 3}, {a: 1, c: 3}, {a: 1, b: 7}, {a: 9, f: 11, j: 99}];
 
@@ -571,7 +571,7 @@ describe('_', function () {
       expect(_.where(stooges)).to.eql(stooges);
     });
   });
-  describe('#extend()', function () {
+  describe('#extend', function () {
     it('is a function', function () {
       expect(_.extend).to.be.a('function');
     });
@@ -604,7 +604,7 @@ describe('_', function () {
         .to.eql({name: 'moe', age: 32});
     });
   });
-  describe.only('#defaults()', function () {
+  describe('#defaults', function () {
     it('is a function', function () {
       expect(_.defaults).to.be.a('function');
     });
@@ -635,6 +635,37 @@ describe('_', function () {
     });
     it('returns undefined if no arguments passed', function () {
       expect(_.defaults()).to.be.undefined;
+    });
+  });
+  describe.only('#once', function () {
+    it('is a function', function () {
+      expect(_.once).to.be.a('function');
+    });
+    it('takes one argument', function () {
+      expect(_.once.length).to.equal(1);
+    });
+    it('returns a function', function () {
+      expect(_.once(function () {})).to.be.a('function');
+    });
+    it('returns a function that does the same thing as the input function', function () {
+      var square = function (num) { return num * num; };
+      var newSquare = _.once(square);
+      expect(newSquare(3)).to.equal(square(3));
+    });
+    it('only executes once if called multiple times', function () {
+      var square = function (num) { return num * num; };
+      var spy = sinon.spy(square);
+      var newSquare = _.once(spy);
+      newSquare(7);
+      expect(spy.callCount).to.equal(1);
+    });
+    it('returns the first return value for each subsequent call', function () {
+      var square = function (num) { return num * num; };
+      var spy = sinon.spy(square);
+      var newSquare = _.once(spy);
+      expect(newSquare(3)).to.equal(9);
+      expect(newSquare(4)).to.equal(9);
+      expect(newSquare(5)).to.equal(9);
     });
   });
 });
