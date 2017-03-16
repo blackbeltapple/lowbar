@@ -19,9 +19,9 @@ Additional: where
 15. extend
 16. defaults
 17. once
+18. memoize
 
 TO DO -----------------
-18. memoize
 19. delay
 20. shuffle
 21. invoke
@@ -233,12 +233,27 @@ _.defaults = function (object, ...defaults) {
 };
 
 _.once = function (myFunction) {
-  var executed = false;
+  var hasRun = false;
   var result;
   return function () {
-    if (!executed) {
-      executed = true;
+    if (!hasRun) {
+      hasRun = true;
       result = myFunction.apply(null, arguments);
+    }
+    return result;
+  };
+};
+
+_.memoize = function (myFunction) {
+  var cache = {};
+  var result;
+  return function () {
+    var stringyArgs = JSON.stringify(arguments);
+    if (cache.hasOwnProperty(stringyArgs)) {
+      result = cache[stringyArgs];
+    } else {
+      result = myFunction.apply(null, arguments);
+      cache[stringyArgs] = result;
     }
     return result;
   };

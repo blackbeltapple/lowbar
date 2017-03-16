@@ -637,7 +637,7 @@ describe('_', function () {
       expect(_.defaults()).to.be.undefined;
     });
   });
-  describe.only('#once', function () {
+  describe('#once', function () {
     it('is a function', function () {
       expect(_.once).to.be.a('function');
     });
@@ -666,6 +666,45 @@ describe('_', function () {
       expect(newSquare(3)).to.equal(9);
       expect(newSquare(4)).to.equal(9);
       expect(newSquare(5)).to.equal(9);
+    });
+  });
+  describe.only('#memoize', function () {
+    it('is a function', function () {
+      expect(_.memoize).to.be.a('function');
+    });
+    it('takes one argument', function () {
+      expect(_.memoize.length).to.equal(1);
+    });
+    it('returns a function', function () {
+      expect(_.memoize(function () {})).to.be.a('function');
+    });
+    it('returns a function that does the same thing as the input function', function () {
+      var square = function (num) { return num * num; };
+      var newSquare = _.memoize(square);
+      expect(newSquare(3, 6, 7, 0, 'kiv')).to.equal(square(3));
+    });
+    it('runs faster when called for second time with identical args', function () {
+      function fibonacci (number) {
+        if (number === undefined) return -1;
+        if (number <= 2) return 1;
+        return fibonacci(number - 1) + fibonacci(number - 2);
+      }
+      var newFibonacci = _.memoize(fibonacci);
+
+      var firstStart = new Date().getTime();
+      newFibonacci(39);
+      var firstEnd = new Date().getTime();
+      var firstTimeDuration = firstEnd - firstStart;
+
+      var secondStart = new Date().getTime();
+      newFibonacci(39);
+      var secondEnd = new Date().getTime();
+      var secondTimeDuration = secondEnd - secondStart;
+
+      expect(secondTimeDuration).to.be.below(firstTimeDuration);
+    });
+    it('returns the memoized variables as cache property on the returned function', function () {
+      //
     });
   });
 });
