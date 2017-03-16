@@ -571,4 +571,37 @@ describe('_', function () {
       expect(_.where(stooges)).to.eql(stooges);
     });
   });
+  describe.only('#extend()', function () {
+    it('is a function', function () {
+      expect(_.extend).to.be.a('function');
+    });
+    it('takes 1 argument', function () {
+      expect(_.extend.length).to.equal(1);
+    });
+    it('returns correct object when given one destination and one source', function () {
+      expect(_.extend({name: 'moe'}, {age: 50}))
+        .to.eql({name: 'moe', age: 50});
+    });
+    it('returns correct object when given one destination and two sources', function () {
+      expect(_.extend({name: 'moe'}, {age: 50}, {shoe: 10}))
+        .to.eql({name: 'moe', age: 50, shoe: 10});
+    });
+    it('returns correct object when given one destination and multiple sources', function () {
+      expect(_.extend({name: 'moe'}, {age: 50}, {shoe: 10}, {chest: 34}, {waist: 32}))
+        .to.eql({name: 'moe', age: 50, shoe: 10, chest: 34, waist: 32});
+    });
+    it('is the same object that is returned when no source is passed', function () {
+      var startObj = {name: 'moe'};
+      expect(_.extend(startObj)).to.equal(startObj);
+    });
+    it('returns correct object when source has nested object', function () {
+      var destObj = {name: 'moe'};
+      var sourceObj = {sizes: {chest: 36, shoe: 10}};
+      expect(_.extend(destObj, sourceObj)).to.eql({name: 'moe', sizes: {chest: 36, shoe: 10}});
+    });
+    it('copies the properties in order given', function () {
+      expect(_.extend({name: 'moe'}, {age: 50}, {age: 10}, {age: 34}, {age: 32}))
+        .to.eql({name: 'moe', age: 32});
+    });
+  });
 });

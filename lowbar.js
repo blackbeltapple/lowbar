@@ -18,7 +18,7 @@ DONE --------------------
 Additional: where
 
 TO DO -----------------
-15. extends
+15. extend
 16. defaults
 17. once
 18. memoize
@@ -212,6 +212,15 @@ _.where = function (list, properties) {
     if (match) result.push(obj);
   });
   return result;
+};
+
+_.extend = function (destination, ...sources) {
+  sources = [...arguments];
+  sources.shift();
+  _.each(sources, function (sourceObj) {
+    destination = Object.assign(destination, sourceObj);
+  });
+  return destination;
 };
 
 if (typeof module !== 'undefined') {
