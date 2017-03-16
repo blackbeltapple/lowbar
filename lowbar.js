@@ -16,10 +16,11 @@ DONE --------------------
 13. every
 14. some
 Additional: where
+15. extend
+
+16. defaults
 
 TO DO -----------------
-15. extend
-16. defaults
 17. once
 18. memoize
 19. delay
@@ -221,6 +222,15 @@ _.extend = function (destination, ...sources) {
     destination = Object.assign(destination, sourceObj);
   });
   return destination;
+};
+
+_.defaults = function (object, ...defaults) {
+  _.each(defaults, function (defaultObj) {
+    _.each(defaultObj, function (value, key) {
+      if (object[key] === undefined) object[key] = value;
+    });
+  });
+  return object;
 };
 
 if (typeof module !== 'undefined') {

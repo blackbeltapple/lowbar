@@ -571,7 +571,7 @@ describe('_', function () {
       expect(_.where(stooges)).to.eql(stooges);
     });
   });
-  describe.only('#extend()', function () {
+  describe('#extend()', function () {
     it('is a function', function () {
       expect(_.extend).to.be.a('function');
     });
@@ -602,6 +602,39 @@ describe('_', function () {
     it('copies the properties in order given', function () {
       expect(_.extend({name: 'moe'}, {age: 50}, {age: 10}, {age: 34}, {age: 32}))
         .to.eql({name: 'moe', age: 32});
+    });
+  });
+  describe.only('#defaults()', function () {
+    it('is a function', function () {
+      expect(_.defaults).to.be.a('function');
+    });
+    it('takes 1 argument', function () {
+      expect(_.defaults.length).to.equal(1);
+    });
+    it('correctly defaults when given one property object', function () {
+      var iceCream = {flavour: 'chocolate'};
+      expect(_.defaults(iceCream, {flavour: 'vanilla', sprinkles: 'lots'}))
+        .to.eql({flavour: 'chocolate', sprinkles: 'lots'});
+    });
+    it('correctly defaults when given multiple default objects', function () {
+      var iceCream = {flavour: 'chocolate', sauce: 'toffee', size: 0};
+      var p1 = {flavour: 'vanilla', sprinkles: 'lots'};
+      var p2 = {wafer: 'square', cone: 'waffle'};
+      var p3 = {size: 1, sauce: 'raspberry'};
+      expect(_.defaults(iceCream, p1, p2, p3))
+        .to.eql({flavour: 'chocolate', sauce: 'toffee', sprinkles: 'lots', wafer: 'square', cone: 'waffle', size: 0});
+    });
+    it('returns original object if no undefined properties to default', function () {
+      var iceCream = {flavour: 'chocolate', sprinkles: 'none'};
+      expect(_.defaults(iceCream, {flavour: 'vanilla', sprinkles: 'lots'}))
+        .to.equal(iceCream);
+    });
+    it('returns original object if defaults passed', function () {
+      var iceCream = {flavour: 'chocolate', sprinkles: 'none'};
+      expect(_.defaults(iceCream)).to.equal(iceCream);
+    });
+    it('returns undefined if no arguments passed', function () {
+      expect(_.defaults()).to.be.undefined;
     });
   });
 });
