@@ -557,23 +557,21 @@ describe('_', function () {
     });
 
     it('executes the predicate function the correct number of times', function () {
-      var spy = sinon.spy();
       var predicate = function (element) {
-        spy();
         return element % 2 === 0;
       };
-      _.every([2, 4, 6, 8, 10, 12], predicate);
-      expect(spy.callCount).to.equal(6);
+      var predicateSpy = sinon.spy(predicate);
+      _.every([2, 4, 6, 8, 10, 12], predicateSpy);
+      expect(predicateSpy.callCount).to.equal(6);
     });
 
     it('executes the predicate function the minimum number of times (until it finds a false)', function () {
-      var spy = sinon.spy();
       var predicate = function (element) {
-        spy();
         return element % 2 === 0;
       };
-      _.every([2, 4, 6, 8, 11, 12], predicate);
-      expect(spy.callCount).to.equal(5);
+      var predicateSpy = sinon.spy(predicate);
+      _.every([2, 4, 6, 8, 11, 12], predicateSpy);
+      expect(predicateSpy.callCount).to.equal(5);
     });
 
     it('uses the context correctly when given one', function () {
@@ -606,13 +604,12 @@ describe('_', function () {
     });
 
     it('calls the predicate the minimum number of times', function () {
-      var spy = sinon.spy();
       var myFunc = function (element) {
-        spy();
         return element === 2;
       };
-      _.some([2, 1, 3], myFunc);
-      expect(spy.callCount).to.equal(1);
+      var myFuncSpy = sinon.spy(myFunc);
+      _.some([2, 1, 3], myFuncSpy);
+      expect(myFuncSpy.callCount).to.equal(1);
     });
 
     it('uses the context correctly when one is passed', function () {
@@ -852,16 +849,60 @@ describe('_', function () {
     });
 
     it('calls the function the minimal number of times', function () {
-      var spy = sinon.spy();
       var add = function (num1, num2) {
-        spy();
         return num1 + num2;
       };
-      var quickAdd = _.memoize(add);
+      var addSpy = sinon.spy(add);
+      var quickAdd = _.memoize(addSpy);
       quickAdd(1, 2);
       quickAdd(3, 4);
       quickAdd(3, 4);
-      expect(spy.callCount).to.equal(2);
+      expect(addSpy.callCount).to.equal(2);
+    });
+  });
+
+  describe.only('#delay', function () {
+    it('is a function', function () {
+      expect(_.delay).to.be.a('function');
+    });
+
+    it('takes two arguments', function () {
+      expect(_.delay.length).to.equal(2);
+    });
+
+    xit('does not return anything', function () {
+      expect(_.delay()).to.equal(undefined);
+    });
+
+    xit('calls the function after required delay', function () {
+      var spy = sinon.spy();
+      var startFunc = new Date().getTime();
+      _.delay(spy, 2000);
+      var endFunc = new Date().getTime();
+      var duration = endFunc - startFunc;
+      expect(duration).to.be.within(1800, 2200);
+      expect(spy.callCount).to.equal(1);
+    });
+
+    describe('does something', function () {
+      function add (a, b) { return a + b; }
+      var addSpy = sinon.spy(add);
+
+      _.delay(function () {
+        console.log('aaaaaaaa');
+        addSpy(50, 390);
+        done();
+      }, 2000);
+
+      function done () { console.log('eeeeeeeeeeeeeeeee'); }
+
+      it('invokes the callback after the specified time', function () {
+        expect(addSpy.called).to.eql(true);
+      });
+
+      it('invokes the callback with the arguments passed', function () {
+        expect(addSpy.calledWith(50, 30)).to.eql(true);
+      });
     });
   });
 });

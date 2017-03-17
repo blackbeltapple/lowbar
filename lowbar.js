@@ -20,8 +20,8 @@ Additional: where
 16. defaults
 17. once
 18. memoize
-
 TO DO -----------------
+
 19. delay
 20. shuffle
 21. invoke
@@ -268,6 +268,12 @@ _.memoize = function (myFunction, hashFunction) {
   // save the cache as a property on the function
   speedyFunction.cache = cache;
   return speedyFunction;
+};
+
+_.delay = function (myFunc, delay, ...args) {
+  return setTimeout(function () {
+    myFunc.apply(null, args);
+  }, delay);
 };
 
 if (typeof module !== 'undefined') {
