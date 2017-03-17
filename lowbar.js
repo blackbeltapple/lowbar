@@ -251,10 +251,10 @@ _.memoize = function (myFunction, hashFunction) {
   var speedyFunction = function () {
     var stringyArgs;
     if (hashFunction) {
-      stringyArgs = hashFunction(arguments[0]);
+      var args = [].slice.call(arguments);
+      stringyArgs = hashFunction.apply(null, args);
     } else {
-      var args = Array.prototype.slice.call(arguments);
-      stringyArgs = JSON.stringify(args);
+      stringyArgs = JSON.stringify(arguments[0]);
     }
     if (cache.hasOwnProperty(stringyArgs)) {
       result = cache[stringyArgs];

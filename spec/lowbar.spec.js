@@ -786,12 +786,12 @@ describe('_', function () {
     });
   });
 
-  describe.only('#memoize', function () {
+  describe('#memoize', function () {
     it('is a function', function () {
       expect(_.memoize).to.be.a('function');
     });
 
-    it('takes one argument', function () {
+    it('takes two arguments', function () {
       expect(_.memoize.length).to.equal(2);
     });
 
@@ -799,10 +799,14 @@ describe('_', function () {
       expect(_.memoize(function () {})).to.be.a('function');
     });
 
+    it('returns a function that has a cache property', function () {
+      expect(_.memoize(function () {}).cache).to.be.an('object');
+    });
+
     it('returns a function that does the same thing as the input function', function () {
       var square = function (num) { return num * num; };
-      var newSquare = _.memoize(square);
-      expect(newSquare(3)).to.equal(square(3));
+      var quickSquare = _.memoize(square);
+      expect(quickSquare(3)).to.equal(square(3));
     });
 
     it('runs faster when called for second time with identical args', function () {
@@ -826,23 +830,38 @@ describe('_', function () {
       expect(secondTimeDuration).to.be.below(firstTimeDuration);
     });
 
-    it('returns the memoized variables as cache property on the returned function', function () {
+    it('returns the memoized variables as a \'cache\' property on the function', function () {
       var add = function (num1, num2) { return num1 + num2; };
       var quickAdd = _.memoize(add);
       quickAdd(3, 4);
       quickAdd(4, 5);
       quickAdd(5, 6);
-      expect(quickAdd.cache).to.eql({'[3,4]': 7, '[4,5]': 9, '[5,6]': 11});
+      expect(quickAdd.cache).to.eql({'3': 7, '4': 9, '5': 11});
     });
 
-    it('hashes the cache key name when passed a hashFunction', function () {
-      var hashFunc = function (key) { return key + '!'; };
+    it('hashes the cache key name correctly when passed a hashFunction', function () {
+      var hashFunc = function () {
+        var args = [].slice.call(arguments);
+        return args.join('!');
+      };
       var add = function (num1, num2) { return num1 + num2; };
       var quickAdd = _.memoize(add, hashFunc);
       quickAdd(3, 4);
       quickAdd(4, 5);
-      quickAdd(5, 6);
-      expect(quickAdd.cache).to.eql({'3!': 7, '4!': 9, '5!': 11});
+      expect(quickAdd.cache).to.eql({'3!4': 7, '4!5': 9});
+    });
+
+    it('calls the function the minimal number of times', function () {
+      var spy = sinon.spy();
+      var add = function (num1, num2) {
+        spy();
+        return num1 + num2;
+      };
+      var quickAdd = _.memoize(add);
+      quickAdd(1, 2);
+      quickAdd(3, 4);
+      quickAdd(3, 4);
+      expect(spy.callCount).to.equal(2);
     });
   });
 });
