@@ -244,11 +244,18 @@ _.once = function (myFunction) {
   };
 };
 
-_.memoize = function (myFunction) {
+_.memoize = function (myFunction, hashFunction) {
   var cache = {};
   var result;
+
   var speedyFunction = function () {
-    var stringyArgs = JSON.stringify(arguments[0]);
+    var stringyArgs;
+    if (hashFunction) {
+      stringyArgs = hashFunction(arguments[0]);
+    } else {
+      var args = Array.prototype.slice.call(arguments);
+      stringyArgs = JSON.stringify(args);
+    }
     if (cache.hasOwnProperty(stringyArgs)) {
       result = cache[stringyArgs];
     } else {
@@ -257,6 +264,7 @@ _.memoize = function (myFunction) {
     }
     return result;
   };
+
   // save the cache as a property on the function
   speedyFunction.cache = cache;
   return speedyFunction;

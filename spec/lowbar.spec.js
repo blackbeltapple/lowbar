@@ -13,7 +13,6 @@ describe('_', function () {
   });
 
   describe('#identity', function () {
-
     it('is a function', function () {
       expect(_.identity).to.be.a('function');
     });
@@ -30,7 +29,6 @@ describe('_', function () {
   });
 
   describe('#first', function () {
-
     it('is a function', function () {
       expect(_.first).to.be.a('function');
     });
@@ -335,7 +333,6 @@ describe('_', function () {
   });
 
   describe('#map', function () {
-
     it('is a function', function () {
       expect(_.map).to.be.a('function');
     });
@@ -424,7 +421,6 @@ describe('_', function () {
   });
 
   describe('#reduce', function () {
-
     it('is a function', function () {
       expect(_.reduce).to.be.a('function');
     });
@@ -490,7 +486,6 @@ describe('_', function () {
   });
 
   describe('#contains', function () {
-
     it('is a function', function () {
       expect(_.contains).to.be.a('function');
     });
@@ -524,7 +519,6 @@ describe('_', function () {
   });
 
   describe('#every', function () {
-
     it('is a function', function () {
       expect(_.every).to.be.a('function');
     });
@@ -593,7 +587,6 @@ describe('_', function () {
   });
 
   describe('#some', function () {
-
     it('is a function', function () {
       expect(_.some).to.be.a('function');
     });
@@ -799,7 +792,7 @@ describe('_', function () {
     });
 
     it('takes one argument', function () {
-      expect(_.memoize.length).to.equal(1);
+      expect(_.memoize.length).to.equal(2);
     });
 
     it('returns a function', function () {
@@ -834,12 +827,22 @@ describe('_', function () {
     });
 
     it('returns the memoized variables as cache property on the returned function', function () {
-      var square = function (num) { return num * num; };
-      var newSquare = _.memoize(square);
-      newSquare(3);
-      newSquare(4);
-      newSquare(5);
-      expect(newSquare.cache).to.eql({'3': 9, '4': 16, '5': 25});
+      var add = function (num1, num2) { return num1 + num2; };
+      var quickAdd = _.memoize(add);
+      quickAdd(3, 4);
+      quickAdd(4, 5);
+      quickAdd(5, 6);
+      expect(quickAdd.cache).to.eql({'[3,4]': 7, '[4,5]': 9, '[5,6]': 11});
+    });
+
+    it('hashes the cache key name when passed a hashFunction', function () {
+      var hashFunc = function (key) { return key + '!'; };
+      var add = function (num1, num2) { return num1 + num2; };
+      var quickAdd = _.memoize(add, hashFunc);
+      quickAdd(3, 4);
+      quickAdd(4, 5);
+      quickAdd(5, 6);
+      expect(quickAdd.cache).to.eql({'3!': 7, '4!': 9, '5!': 11});
     });
   });
 });
