@@ -247,11 +247,8 @@ _.once = function (myFunction) {
 _.memoize = function (myFunction) {
   var cache = {};
   var result;
-  // Still to do the hasfunction
-  // and still to do additional tests for this function
-
-  return function () {
-    var stringyArgs = JSON.stringify(arguments);
+  var speedyFunction = function () {
+    var stringyArgs = JSON.stringify(arguments[0]);
     if (cache.hasOwnProperty(stringyArgs)) {
       result = cache[stringyArgs];
     } else {
@@ -260,6 +257,9 @@ _.memoize = function (myFunction) {
     }
     return result;
   };
+  // save the cache as a property on the function
+  speedyFunction.cache = cache;
+  return speedyFunction;
 };
 
 if (typeof module !== 'undefined') {
