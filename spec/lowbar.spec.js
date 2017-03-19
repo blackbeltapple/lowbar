@@ -889,7 +889,6 @@ describe('_', function () {
       objTimer.start = new Date().getTime();
 
       _.delay(function () {
-        console.log('xxx')
         // addSpy(50, 390);
         // done();
       }, 2000);
@@ -900,7 +899,7 @@ describe('_', function () {
 
       it('invokes the callback after the specified time', function () {
         expect(addSpy.called).to.eql(true);
-        console.log(objTimer.end - objTimer.start)
+        // console.log(objTimer.end - objTimer.start)
       });
 
       it('invokes the callback with the arguments passed', function () {
@@ -909,7 +908,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#shuffle', function () {
+  describe('#shuffle', function () {
     it('is a function', function () {
       expect(_.shuffle).to.be.a('function');
     });
@@ -938,4 +937,32 @@ describe('_', function () {
       expect(endSorted).to.eql(startSorted);
     });
   });
+
+  describe.only('#invoke', function () {
+    it('is a function', function () {
+      expect(_.invoke).to.be.a('function');
+    });
+
+    it('takes two arguments', function () {
+      expect(_.invoke.length).to.equal(2);
+    });
+
+    it('invokes the \'pop\' method on the list', function () {
+      var list = [[2, 3, 4], [5, 6], [7, 8, 9]];
+      expect(_.invoke(list, 'pop')).to.eql([4, 6, 9]);
+    });
+
+    it('invokes the \'sort\' method on the list', function () {
+      var list = [[5, 1, 7], [3, 2, 1]];
+      expect(_.invoke(list, 'sort')).to.eql([[1, 5, 7], [1, 2, 3]]);
+    });
+
+    it('calls the methd the correct number of times', function () {
+
+    });
+
+    it('passes any additional arguments to the method', function () {
+
+    });
+  })
 });

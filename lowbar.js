@@ -20,12 +20,13 @@ Additional: where
 16. defaults
 17. once
 18. memoize
-TO DO -----------------
 
 19. delay // not sure how to test this, not sure if setTimeout is working too
-
 20. shuffle
+
 21. invoke
+
+TO DO -----------------
 22. sortBy
 23. zip
 24. flatten
@@ -287,6 +288,12 @@ _.shuffle = function (arr) {
     list.splice(index, 1);
   }
   return shuffledList;
+};
+
+_.invoke = function (list, method, ...args) {
+  return _.map(list, function (element) {
+    return element[method]();
+  });
 };
 
 if (typeof module !== 'undefined') {
