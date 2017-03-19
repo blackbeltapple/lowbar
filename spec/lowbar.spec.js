@@ -1033,5 +1033,13 @@ describe('_', function () {
       expect(_.zip(arr1, arr2)).to.eql(output);
     });
 
+    it('zips correctly if arrays are different lengths', function () {
+      var arr1 = ['moe', 'larry'];
+      var arr2 = [30, 40, 50];
+      var arr3 = [true, false, false];
+      var output = [['moe', 30, true], ['larry', 40, false], [undefined, 50, false]];
+      expect(_.zip(arr1, arr2, arr3)).to.eql(output);
+    });
+
   });
 });

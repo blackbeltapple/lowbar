@@ -318,9 +318,14 @@ _.sortBy = function (list, iteratee, context) {
 };
 
 _.zip = function (arrays) {
+  // TODO refactor this?????
+
   var args = [].slice.call(arguments);
+  var maxLength = _.reduce(args, function (acc, element) {
+    return element.length > acc ? element.length : acc;
+  }, 0);
   var result = [];
-  for (var i = 0; i < args[0].length; i++) {
+  for (var i = 0; i < maxLength; i++) {
     var newArr = [];
     _.each(args, function (singleArr) {
       newArr.push(singleArr[i]);
