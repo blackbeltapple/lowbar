@@ -26,6 +26,7 @@ describe('_', function () {
       expect(_.identity(undefined)).to.be.undefined;
       expect(_.identity([1, 2, 3])).to.eql([1, 2, 3]);
     });
+  });
 
   describe('#first', function () {
     it('is a function', function () {
@@ -49,7 +50,6 @@ describe('_', function () {
       expect(_.first([4, 6, 7, 8, 9], 3)).to.eql([4, 6, 7]);
     });
 
-  });
     it('it returns undefined if first arg is not an array or a string', function () {
       expect(_.first(false)).to.be.undefined;
       expect(_.first({name: 'moe'})).to.be.undefined;
@@ -870,7 +870,7 @@ describe('_', function () {
       expect(_.delay.length).to.equal(2);
     });
 
-    xit('calls the function after required delay', function () {
+    xit('calls the required function, within expected time', function () {
       var spy = sinon.spy();
       var startFunc = new Date().getTime();
       _.delay(spy, 2000);
@@ -880,32 +880,32 @@ describe('_', function () {
       expect(spy.callCount).to.equal(1);
     });
 
-    xdescribe('does something', function () {
-      function add (a, b) {
-        return a + b;
-      }
-      var addSpy = sinon.spy(add);
-      var objTimer = {start: 0, end: 0};
-      objTimer.start = new Date().getTime();
-
-      _.delay(function () {
-        // addSpy(50, 390);
-        // done();
-      }, 2000);
-
-      function done () {
-        objTimer.end = new Date().getTime();
-      }
-
-      it('invokes the callback after the specified time', function () {
-        expect(addSpy.called).to.eql(true);
-        // console.log(objTimer.end - objTimer.start)
-      });
-
-      it('invokes the callback with the arguments passed', function () {
-        expect(addSpy.calledWith(50, 30)).to.eql(true);
-      });
-    });
+    // xdescribe('does something', function () {
+    //   function add (a, b) {
+    //     return a + b;
+    //   }
+    //   var addSpy = sinon.spy(add);
+    //   var objTimer = {start: 0, end: 0};
+    //   objTimer.start = new Date().getTime();
+    //
+    //   _.delay(function () {
+    //     // addSpy(50, 390);
+    //     // done();
+    //   }, 2000);
+    //
+    //   function done () {
+    //     objTimer.end = new Date().getTime();
+    //   }
+    //
+    //   it('invokes the callback after the specified time', function () {
+    //     expect(addSpy.called).to.eql(true);
+    //     // console.log(objTimer.end - objTimer.start)
+    //   });
+    //
+    //   it('invokes the callback with the arguments passed', function () {
+    //     expect(addSpy.calledWith(50, 30)).to.eql(true);
+    //   });
+    // });
   });
 
   describe('#shuffle', function () {
@@ -964,7 +964,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#sortBy', function () {
+  describe('#sortBy', function () {
     it('is a function', function () {
       expect(_.sortBy).to.be.a('function');
     });
@@ -1005,5 +1005,33 @@ describe('_', function () {
       var result = [3, 6, 1, 4, 2, 5];
       expect(_.sortBy(input, myFunc, context)).to.eql(result);
     });
+  });
+
+  describe.only('#zip', function () {
+    it('is a function', function () {
+      expect(_.zip).to.be.a('function');
+    });
+
+    it('takes one argument', function () {
+      expect(_.zip.length).to.equal(1);
+    });
+
+    it('zips correctly (number arrays > size array)', function () {
+      var arr1 = ['moe', 'larry', 'curly'];
+      var arr2 = [30, 40, 50];
+      var arr3 = [true, false, false];
+      var arr4 = [1, 2, 3];
+      var arr5 = ['a', 'b', 'c'];
+      var output = [['moe', 30, true, 1, 'a'], ['larry', 40, false, 2, 'b'], ['curly', 50, false, 3, 'c']];
+      expect(_.zip(arr1, arr2, arr3, arr4, arr5)).to.eql(output);
+    });
+
+    it('zips correctly (number arrays < size array)', function () {
+      var arr1 = ['the', 'brown', 'jumped', 'the'];
+      var arr2 = ['quick', 'fox', 'over', 'lazy'];
+      var output = [['the', 'quick'], ['brown', 'fox'], ['jumped', 'over'], ['the', 'lazy']];
+      expect(_.zip(arr1, arr2)).to.eql(output);
+    });
+
   });
 });

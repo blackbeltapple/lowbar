@@ -20,15 +20,14 @@ Additional: where
 16. defaults
 17. once
 18. memoize
-
-19. delay // not sure how to test this, not sure if setTimeout is working too
+* 19. delay // not sure how to test this, not sure if setTimeout is working too
 20. shuffle
 21. invoke
-
 22. sortBy
 
-TO DO -----------------
 23. zip
+
+TO DO -----------------
 24. flatten
 25. intersection
 26. difference
@@ -316,6 +315,19 @@ _.sortBy = function (list, iteratee, context) {
       return (a[iteratee] < b[iteratee]) ? -1 : (a[iteratee] > b[iteratee]) ? 1 : 0;
     });
   }
+};
+
+_.zip = function (arrays) {
+  var args = [].slice.call(arguments);
+  var result = [];
+  for (var i = 0; i < args[0].length; i++) {
+    var newArr = [];
+    _.each(args, function (singleArr) {
+      newArr.push(singleArr[i]);
+    });
+    result.push(newArr);
+  }
+  return result;
 };
 
 if (typeof module !== 'undefined') {
