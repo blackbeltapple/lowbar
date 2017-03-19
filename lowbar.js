@@ -292,7 +292,7 @@ _.shuffle = function (arr) {
 
 _.invoke = function (list, method, ...args) {
   return _.map(list, function (element) {
-    return element[method]();
+    return element[method](...args);
   });
 };
 

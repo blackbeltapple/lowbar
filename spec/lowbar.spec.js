@@ -1,4 +1,4 @@
-/* global describe, it, xit */
+/* global describe, it, xit, xdescribe */
 var path = require('path');
 var expect = require('chai').expect;
 var sinon = require('sinon');
@@ -26,7 +26,6 @@ describe('_', function () {
       expect(_.identity(undefined)).to.be.undefined;
       expect(_.identity([1, 2, 3])).to.eql([1, 2, 3]);
     });
-  });
 
   describe('#first', function () {
     it('is a function', function () {
@@ -50,6 +49,7 @@ describe('_', function () {
       expect(_.first([4, 6, 7, 8, 9], 3)).to.eql([4, 6, 7]);
     });
 
+  });
     it('it returns undefined if first arg is not an array or a string', function () {
       expect(_.first(false)).to.be.undefined;
       expect(_.first({name: 'moe'})).to.be.undefined;
@@ -938,7 +938,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#invoke', function () {
+  describe('#invoke', function () {
     it('is a function', function () {
       expect(_.invoke).to.be.a('function');
     });
@@ -957,12 +957,10 @@ describe('_', function () {
       expect(_.invoke(list, 'sort')).to.eql([[1, 5, 7], [1, 2, 3]]);
     });
 
-    it('calls the methd the correct number of times', function () {
-
-    });
-
     it('passes any additional arguments to the method', function () {
-
+      var list = [[5, 1, 7, 6, 3], [3, 2, 1, 7, 4], [7, 2, 3, 7, 9]];
+      expect(_.invoke(list, 'slice', 3)).to.eql([[6, 3], [7, 4], [7, 9]]);
+      expect(_.invoke(list, 'slice', 3, 4)).to.eql([[6], [7], [7]]);
     });
-  })
+  });
 });
