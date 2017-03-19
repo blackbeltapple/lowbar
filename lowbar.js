@@ -22,7 +22,8 @@ Additional: where
 18. memoize
 TO DO -----------------
 
-19. delay
+19. delay // not sure how to test this, not sure if setTimeout is working too
+
 20. shuffle
 21. invoke
 22. sortBy
@@ -274,6 +275,18 @@ _.delay = function (myFunc, delay, ...args) {
   return setTimeout(function () {
     myFunc.apply(null, args);
   }, delay);
+};
+
+_.shuffle = function (arr) {
+  var list = arr.slice();
+  var shuffledList = [];
+  var index;
+  while (list.length > 0) {
+    index = Math.floor(Math.random() * list.length);
+    shuffledList.push(list[index]);
+    list.splice(index, 1);
+  }
+  return shuffledList;
 };
 
 if (typeof module !== 'undefined') {

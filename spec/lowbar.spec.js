@@ -861,17 +861,13 @@ describe('_', function () {
     });
   });
 
-  describe.only('#delay', function () {
+  describe('#delay', function () {
     it('is a function', function () {
       expect(_.delay).to.be.a('function');
     });
 
     it('takes two arguments', function () {
       expect(_.delay.length).to.equal(2);
-    });
-
-    xit('does not return anything', function () {
-      expect(_.delay()).to.equal(undefined);
     });
 
     xit('calls the function after required delay', function () {
@@ -884,25 +880,62 @@ describe('_', function () {
       expect(spy.callCount).to.equal(1);
     });
 
-    describe('does something', function () {
-      function add (a, b) { return a + b; }
+    xdescribe('does something', function () {
+      function add (a, b) {
+        return a + b;
+      }
       var addSpy = sinon.spy(add);
+      var objTimer = {start: 0, end: 0};
+      objTimer.start = new Date().getTime();
 
       _.delay(function () {
-        console.log('aaaaaaaa');
-        addSpy(50, 390);
-        done();
+        console.log('xxx')
+        // addSpy(50, 390);
+        // done();
       }, 2000);
 
-      function done () { console.log('eeeeeeeeeeeeeeeee'); }
+      function done () {
+        objTimer.end = new Date().getTime();
+      }
 
       it('invokes the callback after the specified time', function () {
         expect(addSpy.called).to.eql(true);
+        console.log(objTimer.end - objTimer.start)
       });
 
       it('invokes the callback with the arguments passed', function () {
         expect(addSpy.calledWith(50, 30)).to.eql(true);
       });
+    });
+  });
+
+  describe.only('#shuffle', function () {
+    it('is a function', function () {
+      expect(_.shuffle).to.be.a('function');
+    });
+
+    it('takes one argument', function () {
+      expect(_.shuffle.length).to.equal(1);
+    });
+
+    it('returns a list of same length as the start list', function () {
+      var start = [1, 2, 3, 4, 5];
+      var end = _.shuffle(start);
+      expect(start.length).to.equal(end.length);
+    });
+
+    it('returns a list in a different order to start list', function () {
+      var start = [1, 2, 3, 4, 5];
+      var end = _.shuffle(start);
+      expect(end).to.not.eql(start);
+    });
+
+    it('returns a list containing the same elements as start list', function () {
+      var start = [1, 2, 3, 4, 5];
+      var end = _.shuffle(start);
+      var endSorted = end.sort(function (a, b) { return a - b; });
+      var startSorted = start.sort(function (a, b) { return a - b; });
+      expect(endSorted).to.eql(startSorted);
     });
   });
 });
