@@ -409,7 +409,7 @@ describe('_', function () {
       expect(_.pluck([], 'name')).to.eql([]);
     });
 
-    it('returns [moe, larry, curly]', function () {
+    it('plucks the correct properties', function () {
       var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
       expect(_.pluck(stooges, 'name')).to.eql(['moe', 'larry', 'curly']);
     });
@@ -961,6 +961,49 @@ describe('_', function () {
       var list = [[5, 1, 7, 6, 3], [3, 2, 1, 7, 4], [7, 2, 3, 7, 9]];
       expect(_.invoke(list, 'slice', 3)).to.eql([[6, 3], [7, 4], [7, 9]]);
       expect(_.invoke(list, 'slice', 3, 4)).to.eql([[6], [7], [7]]);
+    });
+  });
+
+  describe.only('#sortBy', function () {
+    it('is a function', function () {
+      expect(_.sortBy).to.be.a('function');
+    });
+
+    it('takes three arguments', function () {
+      expect(_.sortBy.length).to.equal(3);
+    });
+
+    it('sorts by Math.sin function iteratee', function () {
+      var input = [1, 2, 3, 4, 5, 6];
+      var myFunc = function (num) { return Math.sin(num); };
+      var result = [5, 4, 6, 3, 1, 2];
+      expect(_.sortBy(input, myFunc)).to.eql(result);
+    });
+
+    it('sorts by modulo3 function iteratee', function () {
+      var input = [1, 2, 3, 4, 5, 6];
+      var myFunc = function (num) { return num % 3; };
+      var result = [3, 6, 1, 4, 2, 5];
+      expect(_.sortBy(input, myFunc)).to.eql(result);
+    });
+
+    it('sorts by specified key if the iteratee is a string', function () {
+      var stooges = [
+        {name: 'moe', age: 40},
+        {name: 'larry', age: 50},
+        {name: 'curly', age: 60}];
+      expect(_.sortBy(stooges, 'name')).to.eql([
+        {name: 'curly', age: 60},
+        {name: 'larry', age: 50},
+        {name: 'moe', age: 40}]);
+    });
+
+    it('uses context correctly if passed one', function () {
+      var context = {mod: 3};
+      var input = [1, 2, 3, 4, 5, 6];
+      var myFunc = function (num) { return num % this.mod; };
+      var result = [3, 6, 1, 4, 2, 5];
+      expect(_.sortBy(input, myFunc, context)).to.eql(result);
     });
   });
 });

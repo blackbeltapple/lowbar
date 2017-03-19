@@ -23,11 +23,11 @@ Additional: where
 
 19. delay // not sure how to test this, not sure if setTimeout is working too
 20. shuffle
-
 21. invoke
 
-TO DO -----------------
 22. sortBy
+
+TO DO -----------------
 23. zip
 24. flatten
 25. intersection
@@ -294,6 +294,28 @@ _.invoke = function (list, method, ...args) {
   return _.map(list, function (element) {
     return element[method](...args);
   });
+};
+
+_.sortBy = function (list, iteratee, context) {
+  iteratee = iteratee || _.identity;
+  if (typeof iteratee === 'function') {
+    list = _.map(list, function (element) {
+      return {
+        original: element,
+        modified: iteratee.call(context, element)
+      };
+    });
+    // sort my modified value, but return original value
+    list.sort(function (a, b) {
+      return (a.modified < b.modified) ? -1 : (a.modified > b.modified) ? 1 : 0;
+    });
+    // return only the original values, in new order
+    return _.pluck(list, 'original');
+  } else if (typeof iteratee === 'string') {
+    return list.sort(function (a, b) {
+      return (a[iteratee] < b[iteratee]) ? -1 : (a[iteratee] > b[iteratee]) ? 1 : 0;
+    });
+  }
 };
 
 if (typeof module !== 'undefined') {
