@@ -957,7 +957,7 @@ describe('_', function () {
       expect(_.invoke(list, 'sort')).to.eql([[1, 5, 7], [1, 2, 3]]);
     });
 
-    it('passes any additional arguments to the method', function () {
+    it('passes any additional arguments to the method \'slice\'', function () {
       var list = [[5, 1, 7, 6, 3], [3, 2, 1, 7, 4], [7, 2, 3, 7, 9]];
       expect(_.invoke(list, 'slice', 3)).to.eql([[6, 3], [7, 4], [7, 9]]);
       expect(_.invoke(list, 'slice', 3, 4)).to.eql([[6], [7], [7]]);
