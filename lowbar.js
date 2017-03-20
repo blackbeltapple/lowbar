@@ -24,11 +24,10 @@ Additional: where
 20. shuffle
 21. invoke
 22. sortBy
-
 23. zip
+24. flatten
 
 TO DO -----------------
-24. flatten
 25. intersection
 26. difference
 27. throttle
@@ -296,6 +295,7 @@ _.invoke = function (list, method, ...args) {
 };
 
 _.sortBy = function (list, iteratee, context) {
+  list = list || [];
   iteratee = iteratee || _.identity;
   if (typeof iteratee === 'function') {
     list = _.map(list, function (element) {
@@ -318,8 +318,6 @@ _.sortBy = function (list, iteratee, context) {
 };
 
 _.zip = function (arrays) {
-  // TODO refactor this?????
-
   var args = [].slice.call(arguments);
   var maxLength = _.reduce(args, function (acc, element) {
     return element.length > acc ? element.length : acc;
@@ -332,6 +330,30 @@ _.zip = function (arrays) {
     });
     result.push(newArr);
   }
+  return result;
+};
+
+_.flatten = function (list, shallow) {
+  var result = [];
+  var flattenedOneLevel = false;
+
+  function flatten (list) {
+    _.each(list, function (element) {
+      if (!Array.isArray(element)) { // NOT ARRAY
+        result.push(element);
+      } else { // ARRAY
+        if (flattenedOneLevel && shallow) {
+          result.push(element);
+        } else {
+          flattenedOneLevel = true;
+          flatten(element);
+        }
+      }
+    });
+    flattenedOneLevel = false;
+  }
+
+  flatten(list);
   return result;
 };
 

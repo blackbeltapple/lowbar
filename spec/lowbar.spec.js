@@ -1007,7 +1007,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#zip', function () {
+  describe('#zip', function () {
     it('is a function', function () {
       expect(_.zip).to.be.a('function');
     });
@@ -1040,6 +1040,38 @@ describe('_', function () {
       var output = [['moe', 30, true], ['larry', 40, false], [undefined, 50, false]];
       expect(_.zip(arr1, arr2, arr3)).to.eql(output);
     });
+  });
 
+  describe('#flatten', function () {
+    it('is a function', function () {
+      expect(_.flatten).to.be.a('function');
+    });
+
+    it('takes two arguments', function () {
+      expect(_.flatten.length).to.equal(2);
+    });
+
+    it('flattens a simple array', function () {
+      var input = [1, [2], [3, 4]];
+      var output = [1, 2, 3, 4];
+      expect(_.flatten(input, true)).to.eql(output);
+    });
+
+    it('flattens correctly when shallow is true', function () {
+      var input = [1, [2], [3, [[4]]]];
+      var output = [1, 2, 3, [[4]]];
+      expect(_.flatten(input, true)).to.eql(output);
+    });
+
+    it('flattens correctly when shallow is false', function () {
+      var input = [1, [2], [3, [[4]]]];
+      var output = [1, 2, 3, 4];
+      expect(_.flatten(input, false)).to.eql(output);
+    });
+
+    it('flattens correctly, and shallow defaults to false, when  no shallow arg is passed', function () {
+      var input = [1, [2], [3, [[4]]]];
+      expect(_.flatten(input)).to.eql(_.flatten(input, false));
+    });
   });
 });
