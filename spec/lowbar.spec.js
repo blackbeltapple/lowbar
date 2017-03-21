@@ -1007,7 +1007,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#zip', function () {
+  describe('#zip', function () {
     it('is a function', function () {
       expect(_.zip).to.be.a('function');
     });
@@ -1042,7 +1042,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#flatten', function () {
+  describe('#flatten', function () {
     it('is a function', function () {
       expect(_.flatten).to.be.a('function');
     });
@@ -1080,8 +1080,8 @@ describe('_', function () {
       expect(_.intersection).to.be.a('function');
     });
 
-    it('takes one argument', function () {
-      expect(_.intersection.length).to.equal(1);
+    it('takes no arguments', function () {
+      expect(_.intersection.length).to.equal(0);
     });
 
     it('returns the correct intersection for 2 arrays', function () {
@@ -1097,11 +1097,11 @@ describe('_', function () {
       expect(_.intersection(arr1, arr2, arr3)).to.eql([1, 2]);
     });
 
-    it('returns the correct intersection for 3 arrays with mixed value types', function () {
-      var arr1 = [1, 2, 'two', true, false, 'one', {a: 1}];
-      var arr2 = [101, {a: 2}, 2, true, 1, {a: 1}, 10, 'one'];
-      var arr3 = ['one', 2, 1, true, {a: 1}];
-      expect(_.intersection(arr1, arr2, arr3)).to.eql([1, 2, true, {a: 1}, 'one']);
+    it('returns the correct intersection for 3 arrays with mixed primitive types', function () {
+      var arr1 = [1, 2, 'two', true, false, 'one'];
+      var arr2 = [101, 2, true, 1, 10, 'one'];
+      var arr3 = ['one', 2, 1, true];
+      expect(_.intersection(arr1, arr2, arr3)).to.eql([1, 2, true, 'one']);
     });
   });
 });

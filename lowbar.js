@@ -358,9 +358,15 @@ _.flatten = function (list, shallow) {
 };
 
 _.intersection = function (...arrays) {
-  console.log();
-}
-
+  var result = [];
+  _.each(arrays[0], function (element) {
+    var foundInEvery = _.every(arrays, function (array) {
+      return _.contains(array, element);
+    });
+    if (foundInEvery) result.push(element);
+  });
+  return result;
+};
 
 if (typeof module !== 'undefined') {
   module.exports = _;
