@@ -1007,13 +1007,13 @@ describe('_', function () {
     });
   });
 
-  describe('#zip', function () {
+  describe.only('#zip', function () {
     it('is a function', function () {
       expect(_.zip).to.be.a('function');
     });
 
-    it('takes one argument', function () {
-      expect(_.zip.length).to.equal(1);
+    it('takes no argument', function () {
+      expect(_.zip.length).to.equal(0);
     });
 
     it('zips correctly (number arrays > size array)', function () {
@@ -1042,7 +1042,7 @@ describe('_', function () {
     });
   });
 
-  describe('#flatten', function () {
+  describe.only('#flatten', function () {
     it('is a function', function () {
       expect(_.flatten).to.be.a('function');
     });
@@ -1072,6 +1072,36 @@ describe('_', function () {
     it('flattens correctly, and shallow defaults to false, when  no shallow arg is passed', function () {
       var input = [1, [2], [3, [[4]]]];
       expect(_.flatten(input)).to.eql(_.flatten(input, false));
+    });
+  });
+
+  describe.only('#intersection', function () {
+    it('is a function', function () {
+      expect(_.intersection).to.be.a('function');
+    });
+
+    it('takes one argument', function () {
+      expect(_.intersection.length).to.equal(1);
+    });
+
+    it('returns the correct intersection for 2 arrays', function () {
+      var arr1 = [1, 2, 3, 4];
+      var arr2 = [101, 2, 1, 3, 7, 10];
+      expect(_.intersection(arr1, arr2)).to.eql([1, 2, 3]);
+    });
+
+    it('returns the correct intersection for 3 arrays', function () {
+      var arr1 = [1, 2, 3];
+      var arr2 = [101, 2, 1, 10];
+      var arr3 = [2, 1];
+      expect(_.intersection(arr1, arr2, arr3)).to.eql([1, 2]);
+    });
+
+    it('returns the correct intersection for 3 arrays with mixed value types', function () {
+      var arr1 = [1, 2, 'two', true, false, 'one', {a: 1}];
+      var arr2 = [101, {a: 2}, 2, true, 1, {a: 1}, 10, 'one'];
+      var arr3 = ['one', 2, 1, true, {a: 1}];
+      expect(_.intersection(arr1, arr2, arr3)).to.eql([1, 2, true, {a: 1}, 'one']);
     });
   });
 });

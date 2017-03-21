@@ -27,8 +27,9 @@ Additional: where
 23. zip
 24. flatten
 
-TO DO -----------------
 25. intersection
+
+TO DO -----------------
 26. difference
 27. throttle
 
@@ -317,15 +318,14 @@ _.sortBy = function (list, iteratee, context) {
   }
 };
 
-_.zip = function (arrays) {
-  var args = [].slice.call(arguments);
-  var maxLength = _.reduce(args, function (acc, element) {
+_.zip = function (...arrays) {
+  var maxLength = _.reduce(arrays, function (acc, element) {
     return element.length > acc ? element.length : acc;
   }, 0);
   var result = [];
   for (var i = 0; i < maxLength; i++) {
     var newArr = [];
-    _.each(args, function (singleArr) {
+    _.each(arrays, function (singleArr) {
       newArr.push(singleArr[i]);
     });
     result.push(newArr);
@@ -356,6 +356,11 @@ _.flatten = function (list, shallow) {
   flatten(list);
   return result;
 };
+
+_.intersection = function (...arrays) {
+  console.log();
+}
+
 
 if (typeof module !== 'undefined') {
   module.exports = _;
