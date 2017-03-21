@@ -1075,7 +1075,7 @@ describe('_', function () {
     });
   });
 
-  describe.only('#intersection', function () {
+  describe('#intersection', function () {
     it('is a function', function () {
       expect(_.intersection).to.be.a('function');
     });
@@ -1102,6 +1102,36 @@ describe('_', function () {
       var arr2 = [101, 2, true, 1, 10, 'one'];
       var arr3 = ['one', 2, 1, true];
       expect(_.intersection(arr1, arr2, arr3)).to.eql([1, 2, true, 'one']);
+    });
+  });
+
+  describe('#difference', function () {
+    it('is a function', function () {
+      expect(_.difference).to.be.a('function');
+    });
+
+    it('takes one argument', function () {
+      expect(_.difference.length).to.equal(1);
+    });
+
+    it('returns the correct difference for 2 arrays', function () {
+      var arr1 = [1, 2, 3, 4, 5];
+      var arr2 = [5, 2, 10];
+      expect(_.difference(arr1, arr2)).to.eql([1, 3, 4]);
+    });
+
+    it('returns the correct difference for 3 arrays', function () {
+      var arr1 = [1, 2, 3, 4, 5];
+      var arr2 = [5, 2, 10];
+      var arr3 = [1];
+      expect(_.difference(arr1, arr2, arr3)).to.eql([3, 4]);
+    });
+
+    it('returns empty array when no values are different from other arrays', function () {
+      var arr1 = [1, 2, 3, 4, 5];
+      var arr2 = [5, 2, 10];
+      var arr3 = [1, 3, 4];
+      expect(_.difference(arr1, arr2, arr3)).to.eql([]);
     });
   });
 });

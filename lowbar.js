@@ -26,11 +26,11 @@ Additional: where
 22. sortBy
 23. zip
 24. flatten
-
 25. intersection
 
-TO DO -----------------
 26. difference
+
+TO DO -----------------
 27. throttle
 
 */
@@ -364,6 +364,17 @@ _.intersection = function (...arrays) {
       return _.contains(array, element);
     });
     if (foundInEvery) result.push(element);
+  });
+  return result;
+};
+
+_.difference = function (array, ...others) {
+  var result = [];
+  _.each(array, function (element) {
+    var notInOthers = _.every(others, function (array) {
+      return !_.contains(array, element);
+    });
+    if (notInOthers) result.push(element);
   });
   return result;
 };
